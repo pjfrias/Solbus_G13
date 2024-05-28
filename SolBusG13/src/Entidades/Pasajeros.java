@@ -1,0 +1,78 @@
+
+package Entidades;
+
+
+public class Pasajeros {
+    
+    private String nombre;
+    private String apellido;
+    private String dni;
+    private String Correo;
+    private String telefono;
+
+    public Pasajeros() {
+    }
+
+    public Pasajeros(String nombre, String apellido, String dni, String Correo, String telefono) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.Correo = Correo;
+        this.telefono = telefono;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public String getCorreo() {
+        return Correo;
+    }
+
+    public void setCorreo(String Correo) {
+        this.Correo = Correo;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Pasajeros{");
+        sb.append("nombre=").append(nombre);
+        sb.append(", apellido=").append(apellido);
+        sb.append(", dni=").append(dni);
+        sb.append(", Correo=").append(Correo);
+        sb.append(", telefono=").append(telefono);
+        sb.append('}');
+        return sb.toString();
+    }
+    
+    
+}

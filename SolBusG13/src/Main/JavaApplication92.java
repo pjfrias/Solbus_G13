@@ -6,9 +6,23 @@
 
 package Main;
 
+import Entidades.*;
+
 public class JavaApplication92 {
 
     public static void main(String[] args) {
+        
+        Colectivos uno= new Colectivos();
+        Horarios dos  = new Horarios();
+        Pasajeros tres = new Pasajeros();
+        Pasajes cuatro = new Pasajes();
+        Rutas cinco = new Rutas();
+        
+        System.out.println(uno);
+        System.out.println(dos);
+        System.out.println(tres);
+        System.out.println(cuatro);
+        System.out.println(cinco);
      
     }
 
