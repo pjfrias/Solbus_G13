@@ -1,0 +1,47 @@
+create database solbusg13
+
+create table pasajeros (
+id_pasajero		int(10)			not null		auto_increment primary key,
+nombre			varchar(30)		not null,
+apellido			varchar(30)		not null,
+dni				varchar(10)		not null		unique,
+correo			varchar(50)		unique,
+telefono		varchar(20)		not null)
+
+create table colectivos(
+    id_colectivo	int(5)	AUTO_INCREMENT	PRIMARY KEY,
+    matricula		varchar(10)	not null,
+    marca			varchar(15)	not null,
+    modelo			varchar(15),
+    capacidad		int(2)
+    )
+
+CREATE table rutas(
+    id_ruta	int(5)	AUTO_INCREMENT PRIMARY key,
+    origen	varchar(40)	not null,
+    destino	varchar(40)	not null,
+    duracion_estimada	time	not null
+)
+
+CREATE TABLE horarios(
+    id_horario		int(5)	AUTO_INCREMENT	PRIMARY KEY,
+    id_ruta			int(5)	not null,
+    hora_salida		time	not null,
+    hora_llegada	time	not null,
+    FOREIGN KEY (id_ruta) REFERENCES rutas(id_ruta)
+    )
+
+create table pasajes(
+    id_pasaje	int(10)		AUTO_INCREMENT	PRIMARY key,
+    id_pasajero	int(10)		not null,	
+    id_colectivo	int(5)	not null,	
+    id_ruta			int(5)	not null,	
+    fecha_viaje		date	not null,
+    hora_viaje		time	not null,
+    asiento		int(2)		not null,
+    precio		decimal		not null,
+    FOREIGN key (id_pasajero) REFERENCES pasajeros(id_pasajero),
+    FOREIGN key (id_colectivo) REFERENCES colectivos(id_colectivo),
+    FOREIGN key (id_ruta) REFERENCES rutas(id_ruta)
+    )
+
