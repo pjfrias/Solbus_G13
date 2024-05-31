@@ -9,17 +9,19 @@ public class Pasajeros {
     private String dni;
     private String Correo;
     private String telefono;
+    private boolean estado;
 
     public Pasajeros() {
     }
 
-    public Pasajeros(String nombre, String apellido, String dni, String Correo, String telefono) {
+    public Pasajeros(String nombre, String apellido, String dni, String Correo, String telefono, boolean estado) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
         this.Correo = Correo;
         this.telefono = telefono;
-    }
+        this.estado = estado;
+    }    
 
     public String getNombre() {
         return nombre;
@@ -61,6 +63,14 @@ public class Pasajeros {
         this.telefono = telefono;
     }
 
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

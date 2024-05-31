@@ -7,16 +7,18 @@ public class Colectivos {
     private String Marca;
     private String Modelo;
     private int capacidad;
+    private boolean estado;
 
     public Colectivos() {
     }
 
-    public Colectivos(String Matricula, String Marca, String Modelo, int capacidad) {
+    public Colectivos(String Matricula, String Marca, String Modelo, int capacidad, boolean estado) {
         this.Matricula = Matricula;
         this.Marca = Marca;
         this.Modelo = Modelo;
         this.capacidad = capacidad;
-    }
+        this.estado = estado;
+    }    
 
     public String getMatricula() {
         return Matricula;
@@ -48,6 +50,14 @@ public class Colectivos {
 
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     @Override

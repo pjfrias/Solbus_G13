@@ -8,14 +8,16 @@ public class Horarios {
     
     private LocalTime salida;
     private LocalTime llegada;
+    private boolean estado;
 
     public Horarios() {
     }
 
-    public Horarios(LocalTime salida, LocalTime llegada) {
+    public Horarios(LocalTime salida, LocalTime llegada, boolean estado) {
         this.salida = salida;
         this.llegada = llegada;
-    }
+        this.estado = estado;
+    }    
 
     public LocalTime getSalida() {
         return salida;
@@ -31,6 +33,14 @@ public class Horarios {
 
     public void setLlegada(LocalTime llegada) {
         this.llegada = llegada;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     @Override

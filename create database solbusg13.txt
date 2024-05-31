@@ -6,7 +6,8 @@ nombre			varchar(30)		not null,
 apellido			varchar(30)		not null,
 dni				varchar(10)		not null		unique,
 correo			varchar(50)		unique,
-telefono		varchar(20)		not null)
+telefono		varchar(20)		not null
+estado			tinyint(4)		not null)
 
 create table colectivos(
     id_colectivo	int(5)	AUTO_INCREMENT	PRIMARY KEY,
@@ -14,20 +15,21 @@ create table colectivos(
     marca			varchar(15)	not null,
     modelo			varchar(15),
     capacidad		int(2)
-    )
+    estado			tinyint(4)		not null)
 
 CREATE table rutas(
     id_ruta	int(5)	AUTO_INCREMENT PRIMARY key,
     origen	varchar(40)	not null,
     destino	varchar(40)	not null,
     duracion_estimada	time	not null
-)
+    estado			tinyint(4)		not null)
 
 CREATE TABLE horarios(
     id_horario		int(5)	AUTO_INCREMENT	PRIMARY KEY,
     id_ruta			int(5)	not null,
     hora_salida		time	not null,
     hora_llegada	time	not null,
+    estado			tinyint(4)		not null
     FOREIGN KEY (id_ruta) REFERENCES rutas(id_ruta)
     )
 

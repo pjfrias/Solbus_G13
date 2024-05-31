@@ -8,15 +8,17 @@ public class Rutas {
     private String origen;
     private String destino;
     private Duration duracion;
+    private boolean estado;
 
     public Rutas() {
     }
 
-    public Rutas(String origen, String destino, Duration duracion) {
+    public Rutas(String origen, String destino, Duration duracion, boolean estado) {
         this.origen = origen;
         this.destino = destino;
         this.duracion = duracion;
-    }
+        this.estado = estado;
+    }    
 
     public String getOrigen() {
         return origen;
@@ -40,6 +42,14 @@ public class Rutas {
 
     public void setDuracion(Duration duracion) {
         this.duracion = duracion;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     @Override
