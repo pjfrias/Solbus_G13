@@ -4,19 +4,20 @@ package Entidades;
 import java.time.Duration;
 
 
-public class Rutas {
+public class Ruta {
+    private int idRuta;
     private String origen;
     private String destino;
     private Duration duracion;
     private boolean estado;
 
-    public Rutas() {
+    public Ruta() {
     }
 
-    public Rutas(String origen, String destino, Duration duracion, boolean estado) {
+    public Ruta(String origen, String destino, long horas, long minutos, boolean estado) {
         this.origen = origen;
         this.destino = destino;
-        this.duracion = duracion;
+        this.duracion = Duration.ofHours(horas).plusMinutes(minutos);
         this.estado = estado;
     }    
 
@@ -40,8 +41,8 @@ public class Rutas {
         return duracion;
     }
 
-    public void setDuracion(Duration duracion) {
-        this.duracion = duracion;
+    public void setDuracion(long horas, long minutos) {
+        this.duracion = Duration.ofHours(horas).plusMinutes(minutos);
     }
 
     public boolean isEstado() {
