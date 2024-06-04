@@ -2,23 +2,35 @@
 package Entidades;
 
 
-public class Colectivos {
+public class Colectivo {
+    private int id_colectivo;
     private String Matricula;
     private String Marca;
     private String Modelo;
     private int capacidad;
     private boolean estado;
 
-    public Colectivos() {
+    public Colectivo() {
     }
 
-    public Colectivos(String Matricula, String Marca, String Modelo, int capacidad, boolean estado) {
+    public Colectivo(int id_colectivo, String Matricula, String Marca, String Modelo, int capacidad, boolean estado) {
         this.Matricula = Matricula;
         this.Marca = Marca;
         this.Modelo = Modelo;
         this.capacidad = capacidad;
         this.estado = estado;
-    }    
+        this.id_colectivo=id_colectivo;
+    } 
+    
+    public int getId_colectivo() {
+        return id_colectivo;
+    }
+
+    public void setId_colectivo(int id_colectivo) {
+        this.id_colectivo = id_colectivo;
+    }
+
+   
 
     public String getMatricula() {
         return Matricula;
