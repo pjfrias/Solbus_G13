@@ -7,10 +7,13 @@ package Conexion;
 
 import Entidades.Pasajero;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -118,4 +121,84 @@ public class PasajeroData {
             } 
     }
     
+    public List<Pasajero> BuscarPasajerosViaje(Date fecha, String origen, String destino){
+        List<Pasajero> pasajeros = new ArrayList<>();
+                
+        String sql = "select p.id_pasajero, p.nombre, p.apellido, p.dni, p.correo, p.telefono\n" +
+                    "from pasajeros p\n" +
+                    " join pasajes on p.id_pasajero = pasajes.id_pasajero\n" +
+                    " join rutas r on pasajes.id_ruta = r.id_ruta\n" +
+                    "where r.origen = ? and r.destino = ? \n" +
+                    " and pasajes.fecha_viaje = ? \n" +
+                    " and p.estado = 1";
+        
+        PreparedStatement ps = null; 
+        try{ 
+            ps = con.prepareStatement(sql); 
+            ps.setString(1,origen);
+            ps.setString(2, destino);
+            ps.setDate(3, fecha);
+            
+            ResultSet rs = ps.executeQuery(); 
+
+            while(rs.next()){ 
+                Pasajero pas = new Pasajero();
+                pas.setIdPasajero(rs.getInt("id_pasajero"));
+                pas.setNombre(rs.getString("nombre"));
+                pas.setApellido(rs.getString("apellido"));
+                pas.setDni(rs.getString("dni"));
+                pas.setCorreo(rs.getString("correo"));
+                pas.setTelefono(rs.getString("telefono"));
+                pas.setEstado(true);
+                
+                pasajeros.add(pas);
+            }
+            ps.close();
+            
+            if(pasajeros.isEmpty()){ 
+                JOptionPane.showMessageDialog(null, "No se encuentran pasajeros en la Base de Datos"); 
+            }
+            ps.close(); 
+        }catch(SQLException ex){ 
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajeros "+ ex.getMessage());
+        } 
+
+        return pasajeros; 
+    }
+    
+    public List<Pasajero> ListarPasajeros(){
+        List<Pasajero> pasajeros = new ArrayList<>();
+                
+        String sql = "select p.id_pasajero, p.nombre, p.apellido, p.dni, p.correo, p.telefono\n" +
+                    "from pasajeros p.estado = 1";
+        
+        PreparedStatement ps = null; 
+        try{ 
+            ps = con.prepareStatement(sql);            
+            ResultSet rs = ps.executeQuery(); 
+
+            while(rs.next()){ 
+                Pasajero pas = new Pasajero();
+                pas.setIdPasajero(rs.getInt("id_pasajero"));
+                pas.setNombre(rs.getString("nombre"));
+                pas.setApellido(rs.getString("apellido"));
+                pas.setDni(rs.getString("dni"));
+                pas.setCorreo(rs.getString("correo"));
+                pas.setTelefono(rs.getString("telefono"));
+                pas.setEstado(true);
+                
+                pasajeros.add(pas);
+            }
+            ps.close();
+            
+            if(pasajeros.isEmpty()){ 
+                JOptionPane.showMessageDialog(null, "No se encuentran pasajeros en la Base de Datos"); 
+            }
+            ps.close(); 
+        }catch(SQLException ex){ 
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajeros "+ ex.getMessage());
+        } 
+
+        return pasajeros; 
+    }
 }
