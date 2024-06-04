@@ -18,11 +18,11 @@ import javax.swing.JOptionPane;
  *
  * @author prueba
  */
-public class ColectivosData {
+public class ColectivoData {
     
     private Connection conexion = null;
     
-     public ColectivosData(){
+     public ColectivoData(){
         conexion = ConexionDB.getConexion(); 
     }
      
@@ -163,7 +163,7 @@ public class ColectivosData {
         } 
             ps.close(); 
         }catch(SQLException ex){ 
-            JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Alumno "+ex.getMessage()); 
+            JOptionPane.showMessageDialog(null, " Error al listar los colectivos"+ex.getMessage()); 
         } 
         return coles; 
     }
