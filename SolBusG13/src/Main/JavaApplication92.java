@@ -12,7 +12,7 @@ public class JavaApplication92 {
 
     public static void main(String[] args) {
         
-        Colectivo uno= new Colectivo();
+        Colectivos uno= new Colectivos();
         Horarios dos  = new Horarios();
         Pasajeros tres = new Pasajeros();
         Pasajes cuatro = new Pasajes();
