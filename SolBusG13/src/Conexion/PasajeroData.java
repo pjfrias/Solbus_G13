@@ -5,7 +5,7 @@
  */
 package Conexion;
 
-import Entidades.Pasajeros;
+import Entidades.Pasajero;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,7 +25,7 @@ public class PasajeroData {
         con = ConexionDB.getConexion(); 
     }
     
-    public void guardarPasajero(Pasajeros pasajero){
+    public void guardarPasajero(Pasajero pasajero){
         String sql = "insert into pasajeros (nombre, apellido, dni, correo, telefono, estado)"
                 + "values (?, ?, ? , ?, ?, true)";
         try{
@@ -47,8 +47,8 @@ public class PasajeroData {
         }
     }
     
-    public Pasajeros bucarPasajero(int dni){
-        Pasajeros pasajero = null; 
+    public Pasajero bucarPasajero(int dni){
+        Pasajero pasajero = null; 
         String sql = "SELECT nombre, apellido, dni, correo, telefono FROM pasajeros WHERE dni = ? AND estado = 1"; 
         PreparedStatement ps = null; 
         try{ 
@@ -57,7 +57,7 @@ public class PasajeroData {
             ResultSet rs = ps.executeQuery(); 
 
             if(rs.next()){ 
-                pasajero = new Pasajeros(); 
+                pasajero = new Pasajero(); 
                 pasajero.setIdPasajero(rs.getInt("id_pasajero")); 
                 pasajero.setNombre(rs.getString("nombre")); 
                 pasajero.setApellido(rs.getString("apellido")); 
@@ -76,7 +76,7 @@ public class PasajeroData {
         return pasajero; 
     } 
     
-    public void modificarPasajero(Pasajeros pasajero){
+    public void modificarPasajero(Pasajero pasajero){
         String sql = "update pasajeros set nombre = ?, apellido = ?, dni = ?, correo = ?, telefono = ? WHERE id_pasajero = ?"; 
         PreparedStatement ps = null; 
 

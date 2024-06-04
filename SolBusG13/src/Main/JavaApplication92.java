@@ -14,9 +14,9 @@ public class JavaApplication92 {
         
         Colectivos uno= new Colectivos();
         Horarios dos  = new Horarios();
-        Pasajeros tres = new Pasajeros();
-        Pasajes cuatro = new Pasajes();
-        Rutas cinco = new Rutas();
+        Pasajero tres = new Pasajero();
+        Pasaje cuatro = new Pasaje();
+        Ruta cinco = new Ruta();
         
         System.out.println(uno);
         System.out.println(dos);

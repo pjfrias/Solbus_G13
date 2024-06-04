@@ -5,15 +5,18 @@ import java.time.LocalTime;
 
 public class Pasaje{
     private int idPasaje;
-    private Pasajeros pasajero;
+    private Pasajero pasajero;
     private Colectivos colectivo;
-    private Rutas rutas;
+    private Ruta rutas;
     private LocalDate fechaViaje;
     private LocalTime horaViaje;
     private int asiento;
     private double precio;
 
-    public Pasaje(int idPasaje, Pasajeros pasajero, Colectivos colectivo, Rutas rutas, LocalDate fechaViaje, LocalTime horaViaje, int asiento, double precio) {
+    public Pasaje() {
+    }
+    
+    public Pasaje(int idPasaje, Pasajero pasajero, Colectivos colectivo, Ruta rutas, LocalDate fechaViaje, LocalTime horaViaje, int asiento, double precio) {
         this.idPasaje = idPasaje;
         this.pasajero = pasajero;
         this.colectivo = colectivo;
@@ -24,7 +27,7 @@ public class Pasaje{
         this.precio = precio;
     }
 
-    public Pasaje(Pasajeros pasajero, Colectivos colectivo, Rutas rutas, LocalDate fechaViaje, LocalTime horaViaje, int asiento, double precio) {
+    public Pasaje(Pasajero pasajero, Colectivos colectivo, Ruta rutas, LocalDate fechaViaje, LocalTime horaViaje, int asiento, double precio) {
         this.pasajero = pasajero;
         this.colectivo = colectivo;
         this.rutas = rutas;
@@ -42,11 +45,11 @@ public class Pasaje{
         this.idPasaje = idPasaje;
     }
 
-    public Pasajeros getPasajero() {
+    public Pasajero getPasajero() {
         return pasajero;
     }
 
-    public void setPasajero(Pasajeros pasajero) {
+    public void setPasajero(Pasajero pasajero) {
         this.pasajero = pasajero;
     }
 
@@ -58,11 +61,11 @@ public class Pasaje{
         this.colectivo = colectivo;
     }
 
-    public Rutas getRutas() {
+    public Ruta getRutas() {
         return rutas;
     }
 
-    public void setRutas(Rutas rutas) {
+    public void setRutas(Ruta rutas) {
         this.rutas = rutas;
     }
 
