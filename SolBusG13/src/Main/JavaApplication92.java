@@ -6,25 +6,16 @@
 
 package Main;
 
-import Entidades.*;
+import Vistas.JFSolBus;
+import javax.swing.JFrame;
 
 public class JavaApplication92 {
 
     public static void main(String[] args) {
         
-        Colectivo uno= new Colectivo();
-        Horarios dos  = new Horarios();
-        Pasajero tres = new Pasajero();
-        Pasaje cuatro = new Pasaje();
-        Ruta cinco = new Ruta();
-        
-        System.out.println(uno);
-        System.out.println(dos);
-        System.out.println(tres);
-        System.out.println(cuatro);
-        System.out.println(cinco);
-        
-        Conexion.ConexionDB.getConexion();
+        JFSolBus solBus = new JFSolBus();
+        solBus.setExtendedState(JFrame.MAXIMIZED_BOTH); //aparece la pantalla maximizada
+        solBus.setVisible(true);
      
     }
     
