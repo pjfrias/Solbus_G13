@@ -37,11 +37,11 @@ public class ColectivoData {
          try {
              // preparamos la ejecucion de la consulta sql
              PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-             ps.setString(0, colectivo.getMatricula());
-              ps.setString(1, colectivo.getMarca());
-               ps.setString(2, colectivo.getModelo());
-                ps.setInt(3, colectivo.getCapacidad());
-                 ps.setBoolean(4, colectivo.isEstado());
+             ps.setString(1, colectivo.getMatricula());
+              ps.setString(2, colectivo.getMarca());
+               ps.setString(3, colectivo.getModelo());
+                ps.setInt(4, colectivo.getCapacidad());
+                 ps.setBoolean(5, colectivo.isEstado());
                  // usamos update cuando vamos a hacer una modificacion en la base de datos
                  ps.executeUpdate();
              

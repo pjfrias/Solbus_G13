@@ -8,6 +8,7 @@ package Vistas;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JDesktopPane;
 
 /**
  *
@@ -45,7 +46,10 @@ public class JFSolBus extends javax.swing.JFrame {
         jMRutasHorarios = new javax.swing.JMenu();
         jMIRutas = new javax.swing.JMenuItem();
         jMIHorarios = new javax.swing.JMenuItem();
-        jMColectivos = new javax.swing.JMenu();
+        jMGuardarColectivo = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMICrearCole = new javax.swing.JMenuItem();
         jMSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -58,7 +62,7 @@ public class JFSolBus extends javax.swing.JFrame {
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 842, Short.MAX_VALUE)
+            .addGap(0, 843, Short.MAX_VALUE)
         );
 
         jMPasajes.setText("Pasajes");
@@ -82,8 +86,23 @@ public class JFSolBus extends javax.swing.JFrame {
 
         jMenuBar1.add(jMRutasHorarios);
 
-        jMColectivos.setText("Colectivos");
-        jMenuBar1.add(jMColectivos);
+        jMGuardarColectivo.setText("Colectivos");
+
+        jMenuItem1.setText("Buscar Colectivo");
+        jMGuardarColectivo.add(jMenuItem1);
+
+        jMenuItem3.setText("Ver Disponibles");
+        jMGuardarColectivo.add(jMenuItem3);
+
+        jMICrearCole.setText("Crear Colectivo");
+        jMICrearCole.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMICrearColeActionPerformed(evt);
+            }
+        });
+        jMGuardarColectivo.add(jMICrearCole);
+
+        jMenuBar1.add(jMGuardarColectivo);
 
         jMSalir.setText("Salir");
         jMSalir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -120,6 +139,7 @@ public class JFSolBus extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jMSalirMouseClicked
 
+
     private void jMPasajesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMPasajesMouseClicked
         // TODO add your handling code here:
         JIFPasajes pasajes = new JIFPasajes();
@@ -134,6 +154,18 @@ public class JFSolBus extends javax.swing.JFrame {
         jDesktopPane1.add(pasajes);
         jDesktopPane1.moveToFront(pasajes);
     }//GEN-LAST:event_jMPasajesMouseClicked
+
+    private void jMICrearColeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMICrearColeActionPerformed
+        // TODO add your handling code here:
+         JIFCrearColectivo menuCrearCole= new JIFCrearColectivo();
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        menuCrearCole.setVisible(true);
+        jDesktopPane1.add(menuCrearCole);
+        jDesktopPane1.moveToFront(menuCrearCole);
+
+    }//GEN-LAST:event_jMICrearColeActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -170,10 +202,11 @@ public class JFSolBus extends javax.swing.JFrame {
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JMenu jMColectivos;
+    private javax.swing.JMenu jMGuardarColectivo;
+    private javax.swing.JMenuItem jMICrearCole;
     private javax.swing.JMenuItem jMIHorarios;
     private javax.swing.JMenuItem jMIRutas;
     private javax.swing.JMenu jMPasajeros;
@@ -181,5 +214,7 @@ public class JFSolBus extends javax.swing.JFrame {
     private javax.swing.JMenu jMRutasHorarios;
     private javax.swing.JMenu jMSalir;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem3;
     // End of variables declaration//GEN-END:variables
 }
