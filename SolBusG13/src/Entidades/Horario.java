@@ -25,7 +25,7 @@ public class Horario {
     public void setDuracion() {
         Duration duracion; 
         duracion = Duration.between(salida, llegada);
-        LocalTime duracionTime = LocalTime.of((int) duracion.toHours(), duracion.toMinutesPart());
+        LocalTime duracionTime = LocalTime.of((int) duracion.toHours(), (int) duracion.toMinutes());
         ruta.setDuracion(duracionTime);
     }
 

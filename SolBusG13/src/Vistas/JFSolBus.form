@@ -8,6 +8,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Pasajes"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMPasajesMouseClicked"/>
+          </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMPasajeros">
           <Properties>

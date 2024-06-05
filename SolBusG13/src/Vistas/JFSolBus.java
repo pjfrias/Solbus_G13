@@ -62,6 +62,11 @@ public class JFSolBus extends javax.swing.JFrame {
         );
 
         jMPasajes.setText("Pasajes");
+        jMPasajes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMPasajesMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMPasajes);
 
         jMPasajeros.setText("Pasajeros");
@@ -114,6 +119,21 @@ public class JFSolBus extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jMSalirMouseClicked
+
+    private void jMPasajesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMPasajesMouseClicked
+        // TODO add your handling code here:
+        JIFPasajes pasajes = new JIFPasajes();
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        
+        int x = (jDesktopPane1.getWidth()/2) - (pasajes.getWidth()/2);
+        int y = (jDesktopPane1.getHeight()/2) - (pasajes.getHeight()/2);
+        pasajes.setLocation(x, y);
+        
+        pasajes.setVisible(true);
+        jDesktopPane1.add(pasajes);
+        jDesktopPane1.moveToFront(pasajes);
+    }//GEN-LAST:event_jMPasajesMouseClicked
 
     /**
      * @param args the command line arguments
