@@ -1,23 +1,41 @@
 
 package Entidades;
 
+import java.time.Duration;
 import java.time.LocalTime;
 
 
-public class Horarios {
+public class Horario {
     
     private LocalTime salida;
-    private LocalTime llegada;
+    private LocalTime llegada;    
+    private Ruta ruta;
     private boolean estado;
 
-    public Horarios() {
+    public Horario() {
     }
 
-    public Horarios(LocalTime salida, LocalTime llegada, boolean estado) {
+    public Horario(LocalTime salida, LocalTime llegada, Ruta ruta, boolean estado) {
         this.salida = salida;
         this.llegada = llegada;
+        this.ruta = ruta;
         this.estado = estado;
-    }    
+    }
+    
+    public void setDuracion() {
+        Duration duracion; 
+        duracion = Duration.between(salida, llegada);
+        LocalTime duracionTime = LocalTime.of((int) duracion.toHours(), duracion.toMinutesPart());
+        ruta.setDuracion(duracionTime);
+    }
+
+    public Ruta getRuta() {
+        return ruta;
+    }
+
+    public void setRuta(Ruta ruta) {
+        this.ruta = ruta;
+    }  
 
     public LocalTime getSalida() {
         return salida;
