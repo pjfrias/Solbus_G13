@@ -47,7 +47,7 @@ public class JFSolBus extends javax.swing.JFrame {
         jMIRutas = new javax.swing.JMenuItem();
         jMIHorarios = new javax.swing.JMenuItem();
         jMGuardarColectivo = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jmiDisponibles = new javax.swing.JMenuItem();
         jMICrearCole = new javax.swing.JMenuItem();
         jMIBuscarCole = new javax.swing.JMenuItem();
         jMSalir = new javax.swing.JMenu();
@@ -88,8 +88,13 @@ public class JFSolBus extends javax.swing.JFrame {
 
         jMGuardarColectivo.setText("Colectivos");
 
-        jMenuItem3.setText("Ver Disponibles");
-        jMGuardarColectivo.add(jMenuItem3);
+        jmiDisponibles.setText("Ver Disponibles");
+        jmiDisponibles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiDisponiblesActionPerformed(evt);
+            }
+        });
+        jMGuardarColectivo.add(jmiDisponibles);
 
         jMICrearCole.setText("Crear Colectivo");
         jMICrearCole.addActionListener(new java.awt.event.ActionListener() {
@@ -181,6 +186,19 @@ public class JFSolBus extends javax.swing.JFrame {
         jDesktopPane1.moveToFront(menuBuscarCole);
     }//GEN-LAST:event_jMIBuscarColeActionPerformed
 
+    private void jmiDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDisponiblesActionPerformed
+        // TODO add your handling code here:
+        JIFColectivosDisponibles diponibles = new JIFColectivosDisponibles();
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        
+       
+        
+        diponibles.setVisible(true);
+        jDesktopPane1.add(diponibles);
+        jDesktopPane1.moveToFront(diponibles);
+    }//GEN-LAST:event_jmiDisponiblesActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -230,6 +248,6 @@ public class JFSolBus extends javax.swing.JFrame {
     private javax.swing.JMenu jMRutasHorarios;
     private javax.swing.JMenu jMSalir;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jmiDisponibles;
     // End of variables declaration//GEN-END:variables
 }
