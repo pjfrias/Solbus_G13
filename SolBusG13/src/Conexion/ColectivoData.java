@@ -65,21 +65,21 @@ public class ColectivoData {
      
      
      //reed
-     public Colectivo bucarColectivo(int id){
+     public Colectivo bucarColectivo(String matricula){
         Colectivo colectivo = null; 
-        String sql = "SELECT marca, modelo, matricula, capacidad FROM colectivos WHERE id_colectivo = ? AND estado = 1"; 
+        String sql = "SELECT marca, modelo, capacidad FROM colectivos WHERE colectivos.matricula like (?) AND estado = 1"; 
         PreparedStatement ps = null; 
         try{ 
             ps = conexion.prepareStatement(sql); 
-            ps.setInt(0,id ); 
+            ps.setString(1,matricula); 
             ResultSet rs = ps.executeQuery(); // ==>Ejecuta la instrucción SQL determinada y devuelve un objeto SQLServerResultSet único.
 
             if(rs.next()){ // Método que mueve el cursor una fila dentro del ResultSet. Inicialmente el cursor se sitúa antes de la primera fila. Cuando el cursor se posiciona después de la última fila el método devuelve false.
                 colectivo = new Colectivo(); // creamos un nuevo cole y le seteamos campo por campo.
-                colectivo.setId_colectivo(id); 
+                colectivo.setMatricula(matricula); 
                 colectivo.setMarca(rs.getString("marca")); 
                 colectivo.setModelo(rs.getString("modelo")); 
-                colectivo.setMatricula(rs.getString("nombre")); 
+                //colectivo.setMatricula(rs.getString("matricula")); 
                 colectivo.setCapacidad(rs.getInt("capacidad"));  
                 colectivo.setEstado(true);
             }else{ 

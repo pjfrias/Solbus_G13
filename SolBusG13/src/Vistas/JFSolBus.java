@@ -47,9 +47,9 @@ public class JFSolBus extends javax.swing.JFrame {
         jMIRutas = new javax.swing.JMenuItem();
         jMIHorarios = new javax.swing.JMenuItem();
         jMGuardarColectivo = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMICrearCole = new javax.swing.JMenuItem();
+        jMIBuscarCole = new javax.swing.JMenuItem();
         jMSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -88,9 +88,6 @@ public class JFSolBus extends javax.swing.JFrame {
 
         jMGuardarColectivo.setText("Colectivos");
 
-        jMenuItem1.setText("Buscar Colectivo");
-        jMGuardarColectivo.add(jMenuItem1);
-
         jMenuItem3.setText("Ver Disponibles");
         jMGuardarColectivo.add(jMenuItem3);
 
@@ -101,6 +98,14 @@ public class JFSolBus extends javax.swing.JFrame {
             }
         });
         jMGuardarColectivo.add(jMICrearCole);
+
+        jMIBuscarCole.setText("Buscar Colectivo");
+        jMIBuscarCole.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIBuscarColeActionPerformed(evt);
+            }
+        });
+        jMGuardarColectivo.add(jMIBuscarCole);
 
         jMenuBar1.add(jMGuardarColectivo);
 
@@ -166,6 +171,16 @@ public class JFSolBus extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMICrearColeActionPerformed
 
+    private void jMIBuscarColeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIBuscarColeActionPerformed
+        // TODO add your handling code here:
+        JIFBuscarColectivo menuBuscarCole= new JIFBuscarColectivo();
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        menuBuscarCole.setVisible(true);
+        jDesktopPane1.add(menuBuscarCole);
+        jDesktopPane1.moveToFront(menuBuscarCole);
+    }//GEN-LAST:event_jMIBuscarColeActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -206,6 +221,7 @@ public class JFSolBus extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMGuardarColectivo;
+    private javax.swing.JMenuItem jMIBuscarCole;
     private javax.swing.JMenuItem jMICrearCole;
     private javax.swing.JMenuItem jMIHorarios;
     private javax.swing.JMenuItem jMIRutas;
@@ -214,7 +230,6 @@ public class JFSolBus extends javax.swing.JFrame {
     private javax.swing.JMenu jMRutasHorarios;
     private javax.swing.JMenu jMSalir;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
     // End of variables declaration//GEN-END:variables
 }
