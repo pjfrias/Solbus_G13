@@ -13,18 +13,27 @@ public class Colectivo {
     public Colectivo() {
     }
 
-    public Colectivo(int id_colectivo,String Matricula, String Marca, String Modelo, int capacidad, boolean estado) {
+    public Colectivo(String Matricula, String Marca, String Modelo, int capacidad, boolean estado) {
         this.Matricula = Matricula;
         this.Marca = Marca;
         this.Modelo = Modelo;
         this.capacidad = capacidad;
         this.estado = estado;
-        this.id_colectivo=id_colectivo;
+        
     }    
+
+    public Colectivo(int id_colectivo, String Matricula, String Marca, String Modelo, int capacidad, boolean estado) {
+        this.id_colectivo = id_colectivo;
+        this.Matricula = Matricula;
+        this.Marca = Marca;
+        this.Modelo = Modelo;
+        this.capacidad = capacidad;
+        this.estado = estado;
+    }
 
     public int getId_colectivo() {
         return id_colectivo;
-    }
+   }
 
     public void setId_colectivo(int id_colectivo) {
         this.id_colectivo = id_colectivo;

@@ -34,8 +34,7 @@ public class JIFCrearColectivo extends javax.swing.JInternalFrame {
      */
     public JIFCrearColectivo() {
         initComponents();
-        ColectivoData coleMetodos= new ColectivoData();
-          Colectivo coleActual=null;
+        
     }
 
     /**
@@ -183,8 +182,6 @@ public class JIFCrearColectivo extends javax.swing.JInternalFrame {
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
         // TODO add your handling code here:
          
-       
-       
         limpiarCampos();
     }//GEN-LAST:event_jbNuevoActionPerformed
 
@@ -199,13 +196,14 @@ public class JIFCrearColectivo extends javax.swing.JInternalFrame {
         
         
         
-        if(modelo.isEmpty()||marca.isEmpty()|| matricula.isEmpty()){
-        JOptionPane.showMessageDialog(this, "no puede dejar campos vacios");
-        
+        if(modelo.isEmpty()||marca.isEmpty()|| matricula.isEmpty()|| plaza==null){
+            
+        JOptionPane.showMessageDialog(null, "no puede dejar campos vacios");
+        return;
         }
         
         if(coleActual==null){
-        coleActual=new Colectivo(1,matricula,marca,modelo,plaza,true);
+        coleActual=new Colectivo(matricula,marca,modelo,plaza,true);
         coleMetodos.guardarColectivo(coleActual);
         
         }else{
@@ -219,9 +217,10 @@ public class JIFCrearColectivo extends javax.swing.JInternalFrame {
         coleMetodos.modificarColectivo(coleActual);
         
         }
+          
         
-        limpiarCampos();
-            JOptionPane.showMessageDialog(null, "colectivo Guardado correctamente");
+        //limpiarCampos();
+           // JOptionPane.showMessageDialog(null, "colectivo Guardado correctamente");
             
         } catch (Exception e){
     JOptionPane.showMessageDialog(null,"error al crear Colectivo nuevo");

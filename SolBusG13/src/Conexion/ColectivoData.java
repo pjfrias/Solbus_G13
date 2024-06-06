@@ -49,7 +49,7 @@ public class ColectivoData {
                  
                  if(rs.next()){
                  
-                 colectivo.setId_colectivo(rs.getInt("id_colectivo"));
+                 colectivo.setMatricula(rs.getString("matricula"));
                   JOptionPane.showMessageDialog(null, "colectivo aniadido con exito.");
                  
                  }
@@ -66,8 +66,8 @@ public class ColectivoData {
      
      //reed
      public Colectivo bucarColectivo(String matricula){
-        Colectivo colectivo = null; 
-        String sql = "SELECT marca, modelo, capacidad FROM colectivos WHERE colectivos.matricula like (?) AND estado = 1"; 
+        Colectivo colectivoExistente = null; 
+        String sql = "SELECT marca, modelo, capacidad FROM colectivos WHERE matricula like ? AND estado = 1"; 
         PreparedStatement ps = null; 
         try{ 
             ps = conexion.prepareStatement(sql); 
@@ -75,13 +75,13 @@ public class ColectivoData {
             ResultSet rs = ps.executeQuery(); // ==>Ejecuta la instrucción SQL determinada y devuelve un objeto SQLServerResultSet único.
 
             if(rs.next()){ // Método que mueve el cursor una fila dentro del ResultSet. Inicialmente el cursor se sitúa antes de la primera fila. Cuando el cursor se posiciona después de la última fila el método devuelve false.
-                colectivo = new Colectivo(); // creamos un nuevo cole y le seteamos campo por campo.
-                colectivo.setMatricula(matricula); 
-                colectivo.setMarca(rs.getString("marca")); 
-                colectivo.setModelo(rs.getString("modelo")); 
-                //colectivo.setMatricula(rs.getString("matricula")); 
-                colectivo.setCapacidad(rs.getInt("capacidad"));  
-                colectivo.setEstado(true);
+                colectivoExistente = new Colectivo(); // creamos un nuevo cole y le seteamos campo por campo.
+                colectivoExistente.setMatricula(matricula); 
+                colectivoExistente.setMarca(rs.getString("marca")); 
+                colectivoExistente.setModelo(rs.getString("modelo")); 
+                
+                colectivoExistente.setCapacidad(rs.getInt("capacidad"));  
+                colectivoExistente.setEstado(true);
             }else{ 
                 JOptionPane.showMessageDialog(null, "No se encuentra el colectivo"); 
             }
@@ -90,7 +90,7 @@ public class ColectivoData {
             JOptionPane.showMessageDialog(null, "Error al acceder al buscado de colectivo "+ ex.getMessage());
         } 
 
-        return colectivo; 
+        return colectivoExistente; 
     } 
      
      
@@ -129,15 +129,15 @@ public class ColectivoData {
      
      //delete
      
-     public void eliminarColectivo(int id){
+     public void eliminarColectivo(String matricula){
         try { 
-            String sql = "UPDATE colectivo SET estado = 0 WHERE id_colectivo = ? "; 
+            String sql = "UPDATE colectivo SET estado = 0 WHERE matricula like ? "; 
             PreparedStatement ps = conexion.prepareStatement(sql); 
-            ps.setInt(1, id); 
+            ps.setString(1,matricula); 
             int fila=ps.executeUpdate(); 
 
             if(fila==1){ 
-                JOptionPane.showMessageDialog(null, " Se eliminó colectivo Nro : "+ id); 
+                JOptionPane.showMessageDialog(null, " Se eliminó colectivo Nro : "+ matricula); 
             } 
             ps.close(); 
             }catch(SQLException e){ 
