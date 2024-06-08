@@ -1,6 +1,4 @@
-
 package Entidades;
-
 
 public class Colectivo {
     private int id_colectivo;
