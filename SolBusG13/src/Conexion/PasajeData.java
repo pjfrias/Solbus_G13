@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class PasajeData {
@@ -48,35 +50,36 @@ public class PasajeData {
         }
     }
 
-    public Pasaje buscarPasaje(int id) {
+    public Pasaje buscarPasajePorDni(int dni) {
         Pasaje pasaje = null;
         String sql = "SELECT \n"
                 + "    p.id_pasaje,\n"
                 + "    p.id_pasajero,\n"
                 + "    pj.nombre AS nombre_pasajero,\n"
                 + "    pj.apellido AS apellido_pasajero,\n"
-                + "    pj.dni AS dni_pasajero,\n"
-                + "    pj.correo AS correo_pasajero,\n"
-                + "    pj.telefono AS telefono_pasajero,\n"
+                + "    pj.dni,\n"
+                + "    pj.correo,\n"
+                + "    pj.telefono,\n"
                 + "    pj.estado AS estado_pasajero,\n"
                 + "    p.id_colectivo,\n"
-                + "    c.matricula AS matricula_colectivo,\n"
-                + "    c.marca AS marca_colectivo,\n"
-                + "    c.modelo AS modelo_colectivo,\n"
-                + "    c.capacidad AS capacidad_colectivo,\n"
+                + "    c.matricula,\n"
+                + "    c.marca,\n"
+                + "    c.modelo,\n"
+                + "    c.capacidad,\n"
                 + "    c.estado AS estado_colectivo,\n"
                 + "    p.id_ruta,\n"
-                + "    r.origen AS origen_ruta,\n"
-                + "    r.destino AS destino_ruta,\n"
+                + "    r.origen,\n"
+                + "    r.destino,\n"
                 + "    r.duracion_estimada,\n"
                 + "    r.estado AS estado_ruta,\n"
                 + "    p.fecha_viaje,\n"
                 + "    p.hora_viaje,\n"
                 + "    p.asiento,\n"
                 + "    p.precio,\n"
+                + "    p.estado AS estado_pasaje,\n"
                 + "    h.id_horario,\n"
-                + "    h.hora_salida AS salida_horario,\n"
-                + "    h.hora_llegada AS llegada_horario,\n"
+                + "    h.hora_salida,\n"
+                + "    h.hora_llegada,\n"
                 + "    h.estado AS estado_horario\n"
                 + "FROM \n"
                 + "    pasajes p\n"
@@ -90,10 +93,11 @@ public class PasajeData {
                 + "    horarios h ON r.id_ruta = h.id_ruta\n"
                 + "WHERE \n"
                 + "    p.id_pasaje = ?;";
+
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setInt(1, dni);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -103,47 +107,44 @@ public class PasajeData {
                 pasaje.setHoraViaje(rs.getTime("hora_viaje").toLocalTime());
                 pasaje.setAsiento(rs.getInt("asiento"));
                 pasaje.setPrecio(rs.getDouble("precio"));
+                pasaje.setEstado(rs.getBoolean("estado_pasaje"));
 
                 // Crear y asignar Pasajero
                 Pasajero pasajero = new Pasajero();
                 pasajero.setIdPasajero(rs.getInt("id_pasajero"));
                 pasajero.setNombre(rs.getString("nombre_pasajero"));
                 pasajero.setApellido(rs.getString("apellido_pasajero"));
-                pasajero.setDni(rs.getString("dni_pasajero"));
-                pasajero.setCorreo(rs.getString("correo_pasajero"));
-                pasajero.setTelefono(rs.getString("telefono_pasajero"));
+                pasajero.setDni(rs.getString("dni"));
+                pasajero.setCorreo(rs.getString("correo"));
+                pasajero.setTelefono(rs.getString("telefono"));
                 pasajero.setEstado(rs.getBoolean("estado_pasajero"));
                 pasaje.setPasajero(pasajero);
 
                 // Crear y asignar Colectivo
                 Colectivo colectivo = new Colectivo();
                 colectivo.setId_colectivo(rs.getInt("id_colectivo"));
-                colectivo.setMatricula(rs.getString("matricula_colectivo"));
-                colectivo.setMarca(rs.getString("marca_colectivo"));
-                colectivo.setModelo(rs.getString("modelo_colectivo"));
-                colectivo.setCapacidad(rs.getInt("capacidad_colectivo"));
+                colectivo.setMatricula(rs.getString("matricula"));
+                colectivo.setMarca(rs.getString("marca"));
+                colectivo.setModelo(rs.getString("modelo"));
+                colectivo.setCapacidad(rs.getInt("capacidad"));
                 colectivo.setEstado(rs.getBoolean("estado_colectivo"));
                 pasaje.setColectivo(colectivo);
 
                 // Crear y asignar Ruta
                 Ruta ruta = new Ruta();
                 ruta.setIdRuta(rs.getInt("id_ruta"));
-                ruta.setOrigen(rs.getString("origen_ruta"));
-                ruta.setDestino(rs.getString("destino_ruta"));
+                ruta.setOrigen(rs.getString("origen"));
+                ruta.setDestino(rs.getString("destino"));
                 Time duracionEstimada = rs.getTime("duracion_estimada");
                 ruta.setDuracion(duracionEstimada.toLocalTime());
                 ruta.setEstado(rs.getBoolean("estado_ruta"));
 
                 // Crear y asignar Horarios
                 Horario horarios = new Horario();
-                horarios.setSalida(rs.getTime("salida_horario").toLocalTime());
-                horarios.setLlegada(rs.getTime("llegada_horario").toLocalTime());
+                horarios.setSalida(rs.getTime("hora_salida").toLocalTime());
+                horarios.setLlegada(rs.getTime("hora_llegada").toLocalTime());
                 horarios.setEstado(rs.getBoolean("estado_horario"));
-
-                // Asignar la Ruta al Horario
                 horarios.setRuta(ruta);
-
-                // Establecer la duración de la Ruta en base al Horario
                 horarios.setDuracion();
                 pasaje.setRutas(ruta);
 
@@ -157,7 +158,237 @@ public class PasajeData {
 
         return pasaje;
     }
+
+    public Pasaje buscarPasajePorId(int id) {
+        Pasaje pasaje = null;
+        String sql = "SELECT \n"
+                + "    p.id_pasaje,\n"
+                + "    p.id_pasajero,\n"
+                + "    pj.nombre AS nombre_pasajero,\n"
+                + "    pj.apellido AS apellido_pasajero,\n"
+                + "    pj.dni,\n"
+                + "    pj.correo,\n"
+                + "    pj.telefono,\n"
+                + "    pj.estado AS estado_pasajero,\n"
+                + "    p.id_colectivo,\n"
+                + "    c.matricula,\n"
+                + "    c.marca,\n"
+                + "    c.modelo,\n"
+                + "    c.capacidad,\n"
+                + "    c.estado AS estado_colectivo,\n"
+                + "    p.id_ruta,\n"
+                + "    r.origen,\n"
+                + "    r.destino,\n"
+                + "    r.duracion_estimada,\n"
+                + "    r.estado AS estado_ruta,\n"
+                + "    p.fecha_viaje,\n"
+                + "    p.hora_viaje,\n"
+                + "    p.asiento,\n"
+                + "    p.precio,\n"
+                + "    p.estado AS estado_pasaje,\n"
+                + "    h.id_horario,\n"
+                + "    h.hora_salida,\n"
+                + "    h.hora_llegada,\n"
+                + "    h.estado AS estado_horario\n"
+                + "FROM \n"
+                + "    pasajes p\n"
+                + "JOIN \n"
+                + "    pasajeros pj ON p.id_pasajero = pj.id_pasajero\n"
+                + "JOIN \n"
+                + "    colectivos c ON p.id_colectivo = c.id_colectivo\n"
+                + "JOIN \n"
+                + "    rutas r ON p.id_ruta = r.id_ruta\n"
+                + "JOIN \n"
+                + "    horarios h ON r.id_ruta = h.id_ruta\n"
+                + "WHERE \n"
+                + "    p.id_pasaje = ?;";
+
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                pasaje = new Pasaje();
+                pasaje.setIdPasaje(rs.getInt("id_pasaje"));
+                pasaje.setFechaViaje(rs.getDate("fecha_viaje").toLocalDate());
+                pasaje.setHoraViaje(rs.getTime("hora_viaje").toLocalTime());
+                pasaje.setAsiento(rs.getInt("asiento"));
+                pasaje.setPrecio(rs.getDouble("precio"));
+                pasaje.setEstado(rs.getBoolean("estado_pasaje"));
+
+                // Crear y asignar Pasajero
+                Pasajero pasajero = new Pasajero();
+                pasajero.setIdPasajero(rs.getInt("id_pasajero"));
+                pasajero.setNombre(rs.getString("nombre_pasajero"));
+                pasajero.setApellido(rs.getString("apellido_pasajero"));
+                pasajero.setDni(rs.getString("dni"));
+                pasajero.setCorreo(rs.getString("correo"));
+                pasajero.setTelefono(rs.getString("telefono"));
+                pasajero.setEstado(rs.getBoolean("estado_pasajero"));
+                pasaje.setPasajero(pasajero);
+
+                // Crear y asignar Colectivo
+                Colectivo colectivo = new Colectivo();
+                colectivo.setId_colectivo(rs.getInt("id_colectivo"));
+                colectivo.setMatricula(rs.getString("matricula"));
+                colectivo.setMarca(rs.getString("marca"));
+                colectivo.setModelo(rs.getString("modelo"));
+                colectivo.setCapacidad(rs.getInt("capacidad"));
+                colectivo.setEstado(rs.getBoolean("estado_colectivo"));
+                pasaje.setColectivo(colectivo);
+
+                // Crear y asignar Ruta
+                Ruta ruta = new Ruta();
+                ruta.setIdRuta(rs.getInt("id_ruta"));
+                ruta.setOrigen(rs.getString("origen"));
+                ruta.setDestino(rs.getString("destino"));
+                Time duracionEstimada = rs.getTime("duracion_estimada");
+                ruta.setDuracion(duracionEstimada.toLocalTime());
+                ruta.setEstado(rs.getBoolean("estado_ruta"));
+
+                // Crear y asignar Horarios
+                Horario horarios = new Horario();
+                horarios.setSalida(rs.getTime("hora_salida").toLocalTime());
+                horarios.setLlegada(rs.getTime("hora_llegada").toLocalTime());
+                horarios.setEstado(rs.getBoolean("estado_horario"));
+                horarios.setRuta(ruta);
+                horarios.setDuracion();
+                pasaje.setRutas(ruta);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encuentra el pasaje");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasaje " + ex.getMessage());
+        }
+
+        return pasaje;
+    }
+
+    public List<Pasaje> listarPasajePorDni(int dni) {
+        List<Pasaje> pasajeList = new ArrayList<>();
+        String sql = "SELECT \n"
+                + "    p.id_pasaje,\n"
+                + "    p.id_pasajero,\n"
+                + "    pj.nombre AS nombre_pasajero,\n"
+                + "    pj.apellido AS apellido_pasajero,\n"
+                + "    pj.dni,\n"
+                + "    pj.correo,\n"
+                + "    pj.telefono,\n"
+                + "    pj.estado AS estado_pasajero,\n"
+                + "    p.id_colectivo,\n"
+                + "    c.matricula,\n"
+                + "    c.marca,\n"
+                + "    c.modelo,\n"
+                + "    c.capacidad,\n"
+                + "    c.estado AS estado_colectivo,\n"
+                + "    p.id_ruta,\n"
+                + "    r.origen,\n"
+                + "    r.destino,\n"
+                + "    r.duracion_estimada,\n"
+                + "    r.estado AS estado_ruta,\n"
+                + "    p.fecha_viaje,\n"
+                + "    p.hora_viaje,\n"
+                + "    p.asiento,\n"
+                + "    p.precio,\n"
+                + "    p.estado AS estado_pasaje,\n"
+                + "    h.id_horario,\n"
+                + "    h.hora_salida,\n"
+                + "    h.hora_llegada,\n"
+                + "    h.estado AS estado_horario\n"
+                + "FROM \n"
+                + "    pasajes p\n"
+                + "JOIN \n"
+                + "    pasajeros pj ON p.id_pasajero = pj.id_pasajero\n"
+                + "JOIN \n"
+                + "    colectivos c ON p.id_colectivo = c.id_colectivo\n"
+                + "JOIN \n"
+                + "    rutas r ON p.id_ruta = r.id_ruta\n"
+                + "JOIN \n"
+                + "    horarios h ON r.id_ruta = h.id_ruta\n"
+                + "WHERE \n"
+                + "    p.id_pasaje = ?;";
+
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, dni);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                Pasaje pasaje = new Pasaje();
+                pasaje.setIdPasaje(rs.getInt("id_pasaje"));
+                pasaje.setFechaViaje(rs.getDate("fecha_viaje").toLocalDate());
+                pasaje.setHoraViaje(rs.getTime("hora_viaje").toLocalTime());
+                pasaje.setAsiento(rs.getInt("asiento"));
+                pasaje.setPrecio(rs.getDouble("precio"));
+                pasaje.setEstado(rs.getBoolean("estado_pasaje"));
+
+                // Crear y asignar Pasajero
+                Pasajero pasajero = new Pasajero();
+                pasajero.setIdPasajero(rs.getInt("id_pasajero"));
+                pasajero.setNombre(rs.getString("nombre_pasajero"));
+                pasajero.setApellido(rs.getString("apellido_pasajero"));
+                pasajero.setDni(rs.getString("dni"));
+                pasajero.setCorreo(rs.getString("correo"));
+                pasajero.setTelefono(rs.getString("telefono"));
+                pasajero.setEstado(rs.getBoolean("estado_pasajero"));
+                pasaje.setPasajero(pasajero);
+
+                // Crear y asignar Colectivo
+                Colectivo colectivo = new Colectivo();
+                colectivo.setId_colectivo(rs.getInt("id_colectivo"));
+                colectivo.setMatricula(rs.getString("matricula"));
+                colectivo.setMarca(rs.getString("marca"));
+                colectivo.setModelo(rs.getString("modelo"));
+                colectivo.setCapacidad(rs.getInt("capacidad"));
+                colectivo.setEstado(rs.getBoolean("estado_colectivo"));
+                pasaje.setColectivo(colectivo);
+
+                // Crear y asignar Ruta
+                Ruta ruta = new Ruta();
+                ruta.setIdRuta(rs.getInt("id_ruta"));
+                ruta.setOrigen(rs.getString("origen"));
+                ruta.setDestino(rs.getString("destino"));
+                Time duracionEstimada = rs.getTime("duracion_estimada");
+                ruta.setDuracion(duracionEstimada.toLocalTime());
+                ruta.setEstado(rs.getBoolean("estado_ruta"));
+
+                // Crear y asignar Horarios
+                Horario horarios = new Horario();
+                horarios.setSalida(rs.getTime("hora_salida").toLocalTime());
+                horarios.setLlegada(rs.getTime("hora_llegada").toLocalTime());
+                horarios.setEstado(rs.getBoolean("estado_horario"));
+                horarios.setRuta(ruta);
+                horarios.setDuracion();
+                pasaje.setRutas(ruta);
+                pasajeList.add(pasaje);
+            } 
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasaje " + ex.getMessage());
+        }
+
+        return pasajeList;
+    }
     
-    
+    public void eliminarPasaje(int idPasaje){
+        try { 
+            String sql = "update pasaje set estado = 0 WHERE id_pasaje = ? "; 
+            PreparedStatement ps = con.prepareStatement(sql); 
+            ps.setInt(1, idPasaje); 
+            int fila=ps.executeUpdate(); 
+
+            if(fila==1){ 
+                JOptionPane.showMessageDialog(null, " Se ha eliminado al pasaje de la Base de Datos."); 
+            } 
+            ps.close(); 
+            }catch(SQLException e){ 
+                JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Pasaje"); 
+            } 
+    }
 
 }

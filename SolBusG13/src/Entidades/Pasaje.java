@@ -112,5 +112,9 @@ public class Pasaje{
         sb.append('}');
         return sb.toString();
     }
+
+    public void setEstado(boolean aBoolean) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }
