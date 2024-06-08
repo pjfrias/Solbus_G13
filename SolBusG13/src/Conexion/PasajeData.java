@@ -92,7 +92,7 @@ public class PasajeData {
                 + "JOIN \n"
                 + "    horarios h ON r.id_ruta = h.id_ruta\n"
                 + "WHERE \n"
-                + "    p.id_pasaje = ?;";
+                + "    pj.dni = ?;";
 
         PreparedStatement ps = null;
         try {
@@ -145,7 +145,6 @@ public class PasajeData {
                 horarios.setLlegada(rs.getTime("hora_llegada").toLocalTime());
                 horarios.setEstado(rs.getBoolean("estado_horario"));
                 horarios.setRuta(ruta);
-                horarios.setDuracion();
                 pasaje.setRutas(ruta);
 
             } else {
@@ -254,7 +253,6 @@ public class PasajeData {
                 horarios.setLlegada(rs.getTime("hora_llegada").toLocalTime());
                 horarios.setEstado(rs.getBoolean("estado_horario"));
                 horarios.setRuta(ruta);
-                horarios.setDuracion();
                 pasaje.setRutas(ruta);
 
             } else {
@@ -310,7 +308,7 @@ public class PasajeData {
                 + "JOIN \n"
                 + "    horarios h ON r.id_ruta = h.id_ruta\n"
                 + "WHERE \n"
-                + "    p.id_pasaje = ?;";
+                + "    pj.dni = ?;";
 
         PreparedStatement ps = null;
         try {
@@ -363,7 +361,6 @@ public class PasajeData {
                 horarios.setLlegada(rs.getTime("hora_llegada").toLocalTime());
                 horarios.setEstado(rs.getBoolean("estado_horario"));
                 horarios.setRuta(ruta);
-                horarios.setDuracion();
                 pasaje.setRutas(ruta);
                 pasajeList.add(pasaje);
             } 

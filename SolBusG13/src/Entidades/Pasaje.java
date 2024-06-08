@@ -12,11 +12,12 @@ public class Pasaje{
     private LocalTime horaViaje;
     private int asiento;
     private double precio;
+    private boolean estado;
 
     public Pasaje() {
     }
     
-    public Pasaje(int idPasaje, Pasajero pasajero, Colectivo colectivo, Ruta rutas, LocalDate fechaViaje, LocalTime horaViaje, int asiento, double precio) {
+    public Pasaje(int idPasaje, Pasajero pasajero, Colectivo colectivo, Ruta rutas, LocalDate fechaViaje, LocalTime horaViaje, int asiento, double precio, boolean estado) {
         this.idPasaje = idPasaje;
         this.pasajero = pasajero;
         this.colectivo = colectivo;
@@ -25,9 +26,10 @@ public class Pasaje{
         this.horaViaje = horaViaje;
         this.asiento = asiento;
         this.precio = precio;
+        this.estado = estado;
     }
 
-    public Pasaje(Pasajero pasajero, Colectivo colectivo, Ruta rutas, LocalDate fechaViaje, LocalTime horaViaje, int asiento, double precio) {
+    public Pasaje(Pasajero pasajero, Colectivo colectivo, Ruta rutas, LocalDate fechaViaje, LocalTime horaViaje, int asiento, double precio, boolean estado) {
         this.pasajero = pasajero;
         this.colectivo = colectivo;
         this.rutas = rutas;
@@ -35,6 +37,7 @@ public class Pasaje{
         this.horaViaje = horaViaje;
         this.asiento = asiento;
         this.precio = precio;
+        this.estado = estado;
     }
 
     public int getIdPasaje() {
@@ -101,6 +104,14 @@ public class Pasaje{
         this.precio = precio;
     }
 
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -111,10 +122,6 @@ public class Pasaje{
         sb.append(", precio=").append(precio);
         sb.append('}');
         return sb.toString();
-    }
-
-    public void setEstado(boolean aBoolean) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }
