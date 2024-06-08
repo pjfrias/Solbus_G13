@@ -1,24 +1,37 @@
 
 package Entidades;
 
-import java.time.Duration;
+
+import java.time.LocalTime;
 
 
 public class Ruta {
     private int idRuta;
     private String origen;
     private String destino;
-    private Duration duracion;
+    private LocalTime duracion;    
     private boolean estado;
 
     public Ruta() {
     }
 
-    public Ruta(String origen, String destino, long horas, long minutos, boolean estado) {
+    public Ruta(int idRuta, String origen, String destino, boolean estado) {
+        this.idRuta = idRuta;
         this.origen = origen;
-        this.destino = destino;
-        this.duracion = Duration.ofHours(horas).plusMinutes(minutos);
+        this.destino = destino;       
         this.estado = estado;
+    }
+
+    public void setDuracion(LocalTime duracion) {
+        this.duracion = duracion;
+    }
+
+    public int getIdRuta() {
+        return idRuta;
+    }
+
+    public void setIdRuta(int idRuta) {
+        this.idRuta = idRuta;
     }    
 
     public String getOrigen() {
@@ -37,13 +50,9 @@ public class Ruta {
         this.destino = destino;
     }
 
-    public Duration getDuracion() {
+    public LocalTime getDuracion() {
         return duracion;
-    }
-
-    public void setDuracion(long horas, long minutos) {
-        this.duracion = Duration.ofHours(horas).plusMinutes(minutos);
-    }
+    }    
 
     public boolean isEstado() {
         return estado;

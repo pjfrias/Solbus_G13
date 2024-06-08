@@ -31,7 +31,7 @@ public class ConexionDB {
            try{
                Class.forName(DRIVER);
                conexion = DriverManager.getConnection(URL,USUARIO,PASSWORD);
-               JOptionPane.showMessageDialog(null, "Base de datos conectada");
+               
             }catch(ClassNotFoundException ex){
                 JOptionPane.showMessageDialog(null,"Error al cargar el driver de conexion");
             }catch(SQLException e){
