@@ -6,7 +6,12 @@
 
 package Main;
 
+import Conexion.*;
+import Entidades.*;
+
 import Vistas.JFSolBus;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import javax.swing.JFrame;
 
 public class JavaApplication92 {
@@ -17,5 +22,4 @@ public class JavaApplication92 {
         solBus.setVisible(true);
         
     }
-
 }
