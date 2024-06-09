@@ -372,6 +372,34 @@ public class PasajeData {
         return pasajeList;
     }
     
+    public void modificarPasaje(Pasaje pasaje){
+        String sql = "update pasajes set id_pasajero = ?, id_colectivo = ?, id_ruta = ?, fecha_viaje = ?, hora_viaje = ?, asiento = ?, precio = ? WHERE id_pasaje = ?"; 
+        PreparedStatement ps = null; 
+
+        try{ 
+            ps = con.prepareStatement(sql); 
+            ps.setInt(1, pasaje.getPasajero().getIdPasajero());
+            ps.setInt(2, pasaje.getColectivo().getId_colectivo());
+            ps.setInt(3, pasaje.getRutas().getIdRuta());
+            ps.setDate(4, Date.valueOf(pasaje.getFechaViaje()));
+            ps.setTime(5, Time.valueOf(pasaje.getHoraViaje()));
+            ps.setInt(6, pasaje.getAsiento());
+            ps.setDouble(7, pasaje.getPrecio());
+            ps.setInt(8, pasaje.getIdPasaje());
+            
+            int exito = ps.executeUpdate(); 
+
+            if(exito == 1){ 
+                JOptionPane.showMessageDialog(null, "Pasaje modificado Exitosamente."); 
+            }else{ 
+            JOptionPane.showMessageDialog(null, "El pasaje no se encuentra activo en la Base de Datos"); 
+            } 
+
+        }catch(SQLException ex){ 
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasaje"+ ex.getMessage()); 
+        }
+    }
+    
     public void eliminarPasaje(int idPasaje){
         try { 
             String sql = "update pasaje set estado = 0 WHERE id_pasaje = ? "; 
