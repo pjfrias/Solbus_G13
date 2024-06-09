@@ -12,12 +12,10 @@ import javax.swing.JFrame;
 public class JavaApplication92 {
 
     public static void main(String[] args) {
-        
         JFSolBus solBus = new JFSolBus();
         solBus.setExtendedState(JFrame.MAXIMIZED_BOTH); //aparece la pantalla maximizada
         solBus.setVisible(true);
-     
+        
     }
-    
 
 }
