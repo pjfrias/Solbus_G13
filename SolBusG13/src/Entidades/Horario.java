@@ -7,7 +7,6 @@ import java.time.LocalTime;
 
 public class Horario {
     
-    private int idHorario;
     private LocalTime salida;
     private LocalTime llegada;    
     private Ruta ruta;
@@ -28,14 +27,6 @@ public class Horario {
         duracion = Duration.between(salida, llegada);
         LocalTime duracionTime = LocalTime.of((int) duracion.toHours(), (int) duracion.toMinutes());
         ruta.setDuracion(duracionTime);
-    }
-
-    public int getIdHorario() {
-        return idHorario;
-    }
-
-    public void setIdHorario(int idHorario) {
-        this.idHorario = idHorario;
     }
 
     public Ruta getRuta() {

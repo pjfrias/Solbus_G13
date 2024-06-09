@@ -22,13 +22,6 @@ public class Ruta {
         this.estado = estado;
     }
 
-    public Ruta(String origen, String destino, LocalTime duracion, boolean estado) {
-        this.origen = origen;
-        this.destino = destino;
-        this.duracion = duracion;
-        this.estado = estado;
-    }
-
     public void setDuracion(LocalTime duracion) {
         this.duracion = duracion;
     }
