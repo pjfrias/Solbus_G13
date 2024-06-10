@@ -15,12 +15,13 @@ public class Ruta {
     public Ruta() {
     }
 
-    public Ruta(int idRuta, String origen, String destino, boolean estado) {
+    public Ruta(int idRuta, String origen, String destino, LocalTime duracion, boolean estado) {
         this.idRuta = idRuta;
         this.origen = origen;
-        this.destino = destino;       
+        this.destino = destino;
+        this.duracion = duracion;
         this.estado = estado;
-    }
+    }   
 
     public Ruta(String origen, String destino, LocalTime duracion, boolean estado) {
         this.origen = origen;

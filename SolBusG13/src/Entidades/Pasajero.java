@@ -24,6 +24,16 @@ public class Pasajero {
         this.estado = estado;
     }    
 
+    public Pasajero(int id_pasajero, String nombre, String apellido, String dni, String Correo, String telefono, boolean estado) {
+        this.id_pasajero = id_pasajero;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.Correo = Correo;
+        this.telefono = telefono;
+        this.estado = estado;
+    }
+
     public int getIdPasajero(){
         return id_pasajero;
     }

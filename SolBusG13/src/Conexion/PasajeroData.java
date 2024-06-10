@@ -41,7 +41,8 @@ public class PasajeroData {
         ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if(rs.next()){
-                pasajero.setIdPasajero(rs.getInt("id_pasajero")); 
+                pasajero.setIdPasajero(rs.getInt(1)); /* aca tira un error, si mal no recuero el profesor dijo que
+                                                                   cuando usas ps.getgeneratedkeys(), las comnas tienen otro nombre por lo que lo podes buscar o le pones un cero*/
                 JOptionPane.showMessageDialog(null, "Pasajero añadido con exito.");
             }
             ps.close();
@@ -52,7 +53,7 @@ public class PasajeroData {
     
     public Pasajero bucarPasajero(int dni){
         Pasajero pasajero = null; 
-        String sql = "SELECT nombre, apellido, dni, correo, telefono FROM pasajeros WHERE dni = ? AND estado = 1"; 
+        String sql = "SELECT id_pasajero,nombre, apellido, dni, correo, telefono FROM pasajeros WHERE dni = ? AND estado = 1"; //le agregue id_pasajero para que no tirara error
         PreparedStatement ps = null; 
         try{ 
             ps = con.prepareStatement(sql); 
@@ -170,7 +171,7 @@ public class PasajeroData {
         List<Pasajero> pasajeros = new ArrayList<>();
                 
         String sql = "select p.id_pasajero, p.nombre, p.apellido, p.dni, p.correo, p.telefono\n" +
-                    "from pasajeros p.estado = 1";
+                    "from pasajeros p where p.estado = 1";// aca agregue p where
         
         PreparedStatement ps = null; 
         try{ 

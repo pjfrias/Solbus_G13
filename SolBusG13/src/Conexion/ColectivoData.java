@@ -28,7 +28,9 @@ public class ColectivoData {
 
     // crud
     //create
-    public void guardarColectivo(Colectivo colectivo) {
+    public void guardarColectivo(Colectivo colectivo) { /* aca tenias un trown esto lo usamos si queremos que el error se maneje
+        en el proceso que llama a la funcion, y no iria el try y catch interno o si lo pones puede ser porque haya otra exepcion
+        que no se captura en el mismo y la tenes que manejar por afuera. como no tenemos otro codigo que tire exepciones la saque*/
         String sql = "INSERT INTO colectivos(matricula,marca,modelo,capacidad,estado) VALUES(?,?,?,?,?)";
 
         try {
@@ -46,7 +48,8 @@ public class ColectivoData {
 
             if (rs.next()) {
 
-                colectivo.setMatricula(rs.getString("matricula"));
+                /*colectivo.setMatricula(rs.getString("matricula")); Esta linea por lo general la seteamos para obtener los id
+                que se generaron en la base de datos, la matricula ya la traes en el objeto, lo comente porque si no me tiraba error*/
                 JOptionPane.showMessageDialog(null, "colectivo aniadido con exito.");
 
             }
@@ -98,10 +101,11 @@ public class ColectivoData {
 
         try {
             ps = conexion.prepareStatement(sql);
-            ps.setString(0, colectivo.getMatricula());
+            ps.setString(1, colectivo.getMatricula());//lo cambie porque el orden empieza en 1 no en cero
             ps.setString(2, colectivo.getMarca());
             ps.setString(3, colectivo.getModelo());
-            ps.setInt(5, colectivo.getCapacidad());
+            ps.setInt(4, colectivo.getCapacidad());//lo cambie porque el la capacidad es 4, el 5 es el id
+            ps.setInt(5, colectivo.getId_colectivo()); // lo puse para sacar el id del objeto colectivo, esto despues lo podes poner para sacar como mejor te venga
 
             int update = ps.executeUpdate();
 
@@ -117,9 +121,9 @@ public class ColectivoData {
     }
 
     //delete
-    public void eliminarColectivo(String matricula) {
+    public void eliminarColectivo(String matricula) { 
         try {
-            String sql = "UPDATE colectivo SET estado = 0 WHERE matricula like ? ";
+            String sql = "UPDATE colectivos SET estado = 0 WHERE matricula like ? ";//estaba escrito colectivo le agregue la s para que quedara bien
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setString(1, matricula);
             int fila = ps.executeUpdate();

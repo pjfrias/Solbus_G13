@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalTime;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -47,8 +47,12 @@ public class HorarioData {
         try {
             String sql = "update horarios set hora_salida = ?,hora_llegada = ? where id_horario = ? ";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setTime(1, java.sql.Time.valueOf(horas.getSalida()));
-            ps.setTime(2, java.sql.Time.valueOf(horas.getLlegada()));
+            Time salida = Time.valueOf(horas.getSalida());
+            Time llegada = Time.valueOf(horas.getLlegada());
+
+            
+            ps.setTime(1, salida);
+            ps.setTime(2, llegada);
             ps.setInt(3, horas.getIdHorario());
             int fila = ps.executeUpdate();
 
@@ -63,9 +67,10 @@ public class HorarioData {
 
     public void borrarHorarioPorId(Horario horas) {
         try {
-            String sql = "update rutas set estado = 0 where id_ruta = ? ";
+            String sql = "update horarios set estado = 0 where id_horario = ? ";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, horas.getIdHorario());
+            System.out.println(ps);
             int fila = ps.executeUpdate();
 
             if (fila != 0) {
@@ -93,9 +98,9 @@ public class HorarioData {
                 nueva.setDuracion(rs.getTime("duracion_estimada").toLocalTime());
                 horario.setIdHorario(rs.getInt("id_ruta"));
                 horario.setSalida(rs.getTime("hora_salida").toLocalTime());
-                horario.setLlegada(rs.getTime("hora_llegada").toLocalTime());
-                horario.setDuracion();
+                horario.setLlegada(rs.getTime("hora_llegada").toLocalTime());                
                 horario.setRuta(nueva);
+                horarios.add(horario);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a una tabla");
@@ -103,7 +108,7 @@ public class HorarioData {
         return horarios;
     }
 
-    public Horario buscarHorariosID(int id) {
+    public Horario buscarHorarioID(int id) {
         Horario horario = new Horario();
         try {
             String sql = "select rutas.id_ruta,origen,destino,duracion_estimada,hora_salida, hora_llegada"
@@ -119,9 +124,8 @@ public class HorarioData {
                 nueva.setDuracion(rs.getTime("duracion_estimada").toLocalTime());
                 horario.setIdHorario(rs.getInt("id_ruta"));
                 horario.setSalida(rs.getTime("hora_salida").toLocalTime());
-                horario.setLlegada(rs.getTime("hora_llegada").toLocalTime());
-                horario.setDuracion();
-                horario.setRuta(nueva);
+                horario.setLlegada(rs.getTime("hora_llegada").toLocalTime());                
+                horario.setRuta(nueva);                
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a una tabla");

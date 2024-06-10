@@ -113,9 +113,9 @@ public class RutaData {
                 nueva.setDuracion(rs.getTime("duracion_estimada").toLocalTime());
                 horario.setIdHorario(rs.getInt("id_ruta"));
                 horario.setSalida(rs.getTime("hora_salida").toLocalTime());
-                horario.setLlegada(rs.getTime("hora_llegada").toLocalTime());
-                horario.setDuracion();
-                horario.setRuta(nueva);           
+                horario.setLlegada(rs.getTime("hora_llegada").toLocalTime());                
+                horario.setRuta(nueva);                
+                horarios.add(horario);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a una tabla");

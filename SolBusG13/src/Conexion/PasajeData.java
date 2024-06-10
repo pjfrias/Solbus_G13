@@ -27,7 +27,7 @@ public class PasajeData {
     //Crear, Leer, Modificar, Eliminar
     //Guardar, Buscar, Modificar, Eliminar
     public void guardarPasaje(Pasaje pasaje) {
-        String sql = "INSERT INTO pasajes (id_pasajero, id_colectivo, id_ruta, fecha_viaje, hora_viaje, asiento, precio) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO pasajes (id_pasajero, id_colectivo, id_ruta, fecha_viaje, hora_viaje, asiento, precio) VALUES (?, ?, ?, ?, ?, ?, ?)";// 
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, pasaje.getPasajero().getIdPasajero());
@@ -40,7 +40,8 @@ public class PasajeData {
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                pasaje.setIdPasaje(rs.getInt("id_pasaje"));
+                pasaje.setIdPasaje(rs.getInt(0));/* aca tira un error, si mal no recuero el profesor dijo que
+                                                                   cuando usas ps.getgeneratedkeys(), las comnas tienen otro nombre por lo que lo podes buscar o le pones un cero*/
                 JOptionPane.showMessageDialog(null, "Pasaje cargado con exito.");
             }
             ps.close();

@@ -16,6 +16,14 @@ public class Horario {
     public Horario() {
     }
 
+    public Horario(int idHorario, LocalTime salida, LocalTime llegada, Ruta ruta, boolean estado) {
+        this.idHorario = idHorario;
+        this.salida = salida;
+        this.llegada = llegada;
+        this.ruta = ruta;
+        this.estado = estado;
+    }
+
     public Horario(LocalTime salida, LocalTime llegada, Ruta ruta, boolean estado) {
         this.salida = salida;
         this.llegada = llegada;
@@ -24,9 +32,14 @@ public class Horario {
     }
     
     public void setDuracion() {
-        Duration duracion; 
+        Duration duracion;
+        long horas;
+        long minutos;
+        
         duracion = Duration.between(salida, llegada);
-        LocalTime duracionTime = LocalTime.of((int) duracion.toHours(), (int) duracion.toMinutes());
+        horas = duracion.toHours();
+        minutos = duracion.minusHours(horas).toMinutes();
+        LocalTime duracionTime = LocalTime.of((int) horas, (int) minutos);
         ruta.setDuracion(duracionTime);
     }
 
