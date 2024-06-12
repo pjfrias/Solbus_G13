@@ -297,21 +297,18 @@ public class ColectivoData {
     public Colectivo buscarColectivoPasajesVendidos(Horario horario, Date fecha){
         Colectivo cole = null;
         try{
-            String sql ="select c.id_colectivo, c.matricula, c.marca, c.modelo, c.capacidad, count(p.id_pasaje)\n" +
+            String sql ="select c.id_colectivo, c.matricula, c.marca, c.modelo, c.capacidad\n" +
                         "from colectivos c\n" +
                         "join pasajes p on (c.id_colectivo = p.id_colectivo)\n" +
-                        "join rutas r on (r.id_ruta = p.id_ruta)\n" +
-                        "join horarios h on (h.id_ruta = p.id_ruta)\n" +
-                        "where h.id_horario = ? and p.fecha_viaje = ? and c.estado = 1\n" +
-                        "group by c.id_colectivo, c.matricula, c.marca, c.modelo, c.capacidad\n" +
-                        "having count(p.id_pasaje) < c.capacidad";
+                        "join rutas r on (r.id_ruta = p.id_ruta)join horarios h on (h.id_ruta = p.id_ruta)\n" +
+                        "where h.id_horario = ? and p.fecha_viaje = ? and c.estado = 1";
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, horario.getIdHorario());
             ps.setDate(2, fecha);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
                 cole = new Colectivo();
-                
+                cole.setId_colectivo(rs.getInt("Id_colectivo"));
                 cole.setMarca(rs.getString("marca"));
                 cole.setModelo(rs.getString("modelo"));
                 cole.setMatricula(rs.getString("matricula"));

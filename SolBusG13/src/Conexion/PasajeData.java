@@ -62,7 +62,7 @@ public class PasajeData {
                 + "    pj.dni,\n"
                 + "    pj.correo,\n"
                 + "    pj.telefono,\n"
-                + "    pj.estado AS estado_pasajero,\n"
+            //    + "    pj.estado AS estado_pasajero,\n"
                 + "    p.id_colectivo,\n"
                 + "    c.matricula,\n"
                 + "    c.marca,\n"
@@ -109,7 +109,7 @@ public class PasajeData {
                 pasaje.setHoraViaje(rs.getTime("hora_viaje").toLocalTime());
                 pasaje.setAsiento(rs.getInt("asiento"));
                 pasaje.setPrecio(rs.getDouble("precio"));
-                pasaje.setEstado(rs.getBoolean("estado_pasaje"));
+            //    pasaje.setEstado(rs.getBoolean("estado_pasaje"));
 
                 // Crear y asignar Pasajero
                 Pasajero pasajero = new Pasajero();
@@ -278,7 +278,7 @@ public class PasajeData {
                 + "    pj.dni,\n"
                 + "    pj.correo,\n"
                 + "    pj.telefono,\n"
-                + "    pj.estado AS estado_pasajero,\n"
+            //    + "    pj.estado AS estado_pasajero,\n"
                 + "    p.id_colectivo,\n"
                 + "    c.matricula,\n"
                 + "    c.marca,\n"
@@ -325,7 +325,7 @@ public class PasajeData {
                 pasaje.setHoraViaje(rs.getTime("hora_viaje").toLocalTime());
                 pasaje.setAsiento(rs.getInt("asiento"));
                 pasaje.setPrecio(rs.getDouble("precio"));
-                pasaje.setEstado(rs.getBoolean("estado_pasaje"));
+           //     pasaje.setEstado(rs.getBoolean("estado_pasaje"));
 
                 // Crear y asignar Pasajero
                 Pasajero pasajero = new Pasajero();

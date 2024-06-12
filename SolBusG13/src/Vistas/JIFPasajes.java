@@ -48,7 +48,6 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
         modelo.addColumn("Nro Asiento");
         
         jTPasajeros.setModel(modelo);
-        
         cargarRutas();
         cargarHorarios();
     }
@@ -72,11 +71,11 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
         jTEmail = new javax.swing.JTextField();
         jBBuscarPasajero = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
         jCBRuta = new javax.swing.JComboBox<>();
         jTHoy = new javax.swing.JTextField();
         jCBHorarios = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
+        jBVerColectivo = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -95,11 +94,13 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
         jBBorrar = new javax.swing.JButton();
         jBGuardar = new javax.swing.JButton();
         jBSalir = new javax.swing.JButton();
-        jBVerPasajeros = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jCBAsiento = new javax.swing.JComboBox<>();
-        jLabel10 = new javax.swing.JLabel();
+        jBVerPasajeros = new javax.swing.JButton();
         jTPrecio = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         setMaximizable(true);
         setResizable(true);
@@ -115,19 +116,19 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Nombre");
 
-        jTNombre.setEnabled(false);
+        jTNombre.setEditable(false);
 
         jLabel4.setText("Apellido");
 
-        jTApellido.setEnabled(false);
+        jTApellido.setEditable(false);
 
         jLabel5.setText("Email");
 
         jLabel6.setText("Telefono");
 
-        jTTelefono.setEnabled(false);
+        jTTelefono.setEditable(false);
 
-        jTEmail.setEnabled(false);
+        jTEmail.setEditable(false);
 
         jBBuscarPasajero.setText("Buscar Pasajero");
         jBBuscarPasajero.addActionListener(new java.awt.event.ActionListener() {
@@ -173,15 +174,15 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
             .addGroup(jPPasajeroLayout.createSequentialGroup()
                 .addGroup(jPPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPPasajeroLayout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(jLabel2))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPPasajeroLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jTDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addComponent(jBBuscarPasajero))
+                        .addGroup(jPPasajeroLayout.createSequentialGroup()
+                            .addGap(20, 20, 20)
+                            .addComponent(jLabel2))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPPasajeroLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jTDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jBBuscarPasajero)
+                        .addComponent(jLabel5)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPPasajeroLayout.createSequentialGroup()
@@ -200,15 +201,14 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Origen - Destino"));
 
-        jLabel9.setText("Fecha del pasaje");
-
+        jCBRuta.setName(""); // NOI18N
         jCBRuta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBRutaActionPerformed(evt);
             }
         });
 
-        jTHoy.setEnabled(false);
+        jTHoy.setEditable(false);
 
         jCBHorarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,31 +218,38 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
 
         jLabel8.setText("Horario");
 
+        jBVerColectivo.setText("Ver Colectivo");
+        jBVerColectivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBVerColectivoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCBRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(18, 18, 18))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(30, 30, 30)))
+                        .addGap(16, 16, 16)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jCBHorarios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTHoy, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))))
-                .addContainerGap(12, Short.MAX_VALUE))
+                            .addComponent(jCBRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(18, 18, 18)
+                                .addComponent(jCBHorarios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(jTHoy, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBVerColectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addComponent(jCBRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -250,9 +257,9 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
                     .addComponent(jLabel8))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTHoy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addGap(19, 19, 19))
+                    .addComponent(jBVerColectivo)
+                    .addComponent(jTHoy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Unidad de traslado"));
@@ -263,7 +270,7 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
 
         jLabel13.setText("Matricula");
 
-        jLabel14.setText("Capacidad Pasajeros");
+        jLabel14.setText("Capacidad");
 
         jLabel15.setText("Lugares disponibles");
 
@@ -299,14 +306,15 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
                 .addGap(6, 6, 6)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTCapaciad, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel15)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTLugaresDisponibles)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,7 +358,7 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
             }
         });
 
-        jBBuscar.setText("Buscar");
+        jBBuscar.setText("Buscar Pasaje");
         jBBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBBuscarActionPerformed(evt);
@@ -379,6 +387,10 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
             }
         });
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalles"));
+
+        jLabel7.setText("Elija un asiento");
+
         jBVerPasajeros.setText("Ver Pasajeros");
         jBVerPasajeros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -386,27 +398,72 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel7.setText("Elija un asiento");
-
-        jLabel10.setText("PRECIO $");
-
+        jTPrecio.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jTPrecio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTPrecioActionPerformed(evt);
             }
         });
 
+        jLabel10.setText("PRECIO PASAJE ");
+
+        jLabel9.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel9.setText("$");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBVerPasajeros, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(jCBAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel10))
+                .addGap(57, 57, 57))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBVerPasajeros)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7)
+                        .addComponent(jCBAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jTPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel9)))
+                .addContainerGap(9, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jBBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(268, 268, 268)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jBNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jBBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -414,30 +471,17 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 768, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCBAsiento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jBVerPasajeros, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jTPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addComponent(jLabel10))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(252, 252, 252)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jPPasajero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jPPasajero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -445,37 +489,24 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPPasajero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jBNueva)
-                            .addComponent(jBBuscar)
-                            .addComponent(jBBorrar)
-                            .addComponent(jBGuardar)
-                            .addComponent(jBSalir)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(183, 183, 183)
-                                .addComponent(jBVerPasajeros))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel10)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(jCBAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPPasajero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBNueva)
+                    .addComponent(jBBuscar)
+                    .addComponent(jBBorrar)
+                    .addComponent(jBGuardar)
+                    .addComponent(jBSalir))
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -519,8 +550,8 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
         limpiarVariablesColectivo();
         limpiarCamposColectivo();
         ruta = (Ruta) jCBRuta.getSelectedItem();
-        cargarHorarios();
         limpiarTabla();
+        cargarHorarios();
     }//GEN-LAST:event_jCBRutaActionPerformed
 
     private void jCBHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBHorariosActionPerformed
@@ -529,19 +560,7 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
         limpiarCamposColectivo();
         horario = (Horario) jCBHorarios.getSelectedItem();
         
-        //LLAMAR A LA FUNCION QUE ME DEVUELVE EL COLECTIVO
-        if (horario != null) {
-            colectivo = coleDat.buscarColectivoPasajesVendidos(horario, hoy);
-
-            if(colectivo != null){
-                llenarDatosColectivo();
-            }else{
-                buscarColectivoVacio();
-                if (colectivo != null) {
-                    llenarDatosColectivo();
-                }else limpiarCamposColectivo();
-            }
-        }else limpiarCamposColectivo();
+        
             
     }//GEN-LAST:event_jCBHorariosActionPerformed
 
@@ -552,6 +571,7 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
 
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
         // TODO add your handling code here:
+        //resetVista();
         int nroPasaje = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del pasaje a buscar"));
         pasaje = pasajeDat.buscarPasajePorId(nroPasaje);
         if (pasaje != null) {
@@ -563,6 +583,7 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
         }
         
         if (pasaje != null && pasajero != null && colectivo != null && ruta != null && horario != null) {
+            
             cargarDatosPasajero();
             cargarDatosRuta();
             cargarDatosHorario();
@@ -602,6 +623,23 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
         validarPrecio();
     }//GEN-LAST:event_jTPrecioActionPerformed
 
+    private void jBVerColectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerColectivoActionPerformed
+        // TODO add your handling code here:
+        //LLAMAR A LA FUNCION QUE ME DEVUELVE EL COLECTIVO
+        if (horario != null) {
+            colectivo = coleDat.buscarColectivoPasajesVendidos(horario, hoy);
+
+            if(colectivo != null){
+                llenarDatosColectivo();
+            }else{
+                buscarColectivoVacio();
+                if (colectivo != null) {
+                    llenarDatosColectivo();
+                }//else limpiarCamposColectivo();
+            }
+        }//else limpiarCamposColectivo();
+    }//GEN-LAST:event_jBVerColectivoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBBorrar;
@@ -610,6 +648,7 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBGuardar;
     private javax.swing.JButton jBNueva;
     private javax.swing.JButton jBSalir;
+    private javax.swing.JButton jBVerColectivo;
     private javax.swing.JButton jBVerPasajeros;
     private javax.swing.JComboBox<Integer> jCBAsiento;
     private javax.swing.JComboBox<Horario> jCBHorarios;
@@ -632,6 +671,7 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPPasajero;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTApellido;
     private javax.swing.JTextField jTCapaciad;
@@ -680,10 +720,12 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
     private void buscarColectivoVacio(){
         if(coleDat.verColectivosVacios(hoy).size() > 0){
             colectivo = coleDat.verColectivosVacios(hoy).get(0);
+            jBGuardar.setEnabled(true);
             
         }else{
             JOptionPane.showMessageDialog(this, "No hay colectivos disponibles para este viaje por hoy");
-            limpiarCamposColectivo();
+            jBGuardar.setEnabled(false);
+           // limpiarCamposColectivo();
         }
     }
     
@@ -694,7 +736,6 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
         jTCapaciad.setText("");
         jTLugaresDisponibles.setText("");
         jCBAsiento.removeAllItems();
-        jBBuscarPasajero.setEnabled(false);
         jCBAsiento.setEnabled(false);
     }
     
@@ -742,6 +783,9 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
                     }
                 }
             }
+            if (pasaje != null) {
+                jCBAsiento.addItem(pasaje.getAsiento());
+            }
             
             jCBAsiento.setEnabled(true);
         }else {
@@ -751,31 +795,36 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
     }
     
     private void cargarRutas(){
-        jCBRuta.removeAllItems();
-        ArrayList<Ruta> rutas = rutaDat.buscarRutas();
-        if (rutas.size()>0) {
-            for (Ruta ruta1 : rutas) {
-                jCBRuta.addItem(ruta1);
-            }
-            if(ruta == null){
+        if(ruta ==null){
+            jCBRuta.removeAllItems();
+            ArrayList<Ruta> rutas = rutaDat.buscarRutas();
+            if (rutas.size()>0) {
+                for (Ruta ruta1 : rutas) {
+                    jCBRuta.addItem(ruta1);
+                }
                 jCBRuta.setSelectedIndex(0);
                 ruta = (Ruta) jCBRuta.getSelectedItem();
-            }else jCBRuta.setSelectedItem(ruta);
-        }else JOptionPane.showMessageDialog(this,"No hay rutas cargadas en la base de datos");
+            }else JOptionPane.showMessageDialog(this,"No hay rutas cargadas en la base de datos");
+        }else {
+            for (int i = 0; i < jCBRuta.getItemCount(); i++) {
+                if (jCBRuta.getItemAt(i).getIdRuta() == ruta.getIdRuta()) {
+                    jCBRuta.setSelectedIndex(i);
+                    System.out.println("Indice "+i+" Ruta: "+ruta);
+                }
+            }
+        }
     }
     
     private void cargarHorarios(){
         if (ruta != null) {
-            ArrayList<Horario> horarios = new ArrayList<>();
-            horarios = horarioDat.buscarHorariosRuta(ruta);
+            ArrayList<Horario> horarios = horarioDat.buscarHorariosRuta(ruta);
             if (horarios.size()>0) {
                 for (Horario hor : horarios) {
                     jCBHorarios.addItem(hor);
                 }
-                if(horario == null){
-                    jCBHorarios.setSelectedIndex(0);
-                    horario = (Horario) jCBHorarios.getSelectedItem();
-                }else jCBHorarios.setSelectedItem(horario);
+            if(horario == null)
+                horario = jCBHorarios.getItemAt(0);
+            else jCBHorarios.setSelectedItem(horario);
             }else JOptionPane.showMessageDialog(this,"No hay Horarios cargados para esta ruta en la base de datos");
         }
     }
@@ -824,13 +873,12 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
     
     private void resetVista(){
         limpiarCampos();
-        limpiarCamposColectivo();
         limpiarVariablesColectivo();
         pasajero = null;
         pasaje = null;
         pasajes = null;
-        cargarRutas();
-        cargarHorarios();
+        //cargarRutas();
+        //cargarHorarios();
         jBGuardar.setEnabled(true);
         jBBorrar.setEnabled(false);
         jBNueva.setEnabled(false);
