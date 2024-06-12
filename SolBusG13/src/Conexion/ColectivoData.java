@@ -146,9 +146,10 @@ public class ColectivoData {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Colectivo colectivo = new Colectivo();
+                 colectivo.setMatricula(rs.getString("matricula"));
+                 colectivo.setModelo(rs.getString("modelo"));
                 colectivo.setMarca(rs.getString("marca"));
-                colectivo.setModelo(rs.getString("modelo"));
-                colectivo.setMatricula(rs.getString("matricula"));
+                
                 colectivo.setCapacidad(rs.getInt("capacidad"));
 
                 coles.add(colectivo);

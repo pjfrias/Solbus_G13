@@ -3,10 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package Vistas;
-
+import java.util.regex.*;
 import Conexion.ColectivoData;
 import Entidades.Colectivo;
+import java.awt.Color;
+import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
+import javax.swing.text.html.CSS;
 
 /**
  *
@@ -59,17 +63,16 @@ public class JIFCrearColectivo extends javax.swing.JInternalFrame {
         jtMatricula = new javax.swing.JTextField();
         jtPlazas = new javax.swing.JTextField();
 
-        setBackground(new java.awt.Color(51, 102, 255));
         setClosable(true);
         setTitle("Creamos un Colectivo");
 
         jLabel1.setText("Para armar un viaje primero elijamos un colectivo");
 
-        jLabel2.setText("Modelo : ");
+        jLabel2.setText("Modelo (año) : ");
 
-        jLabel3.setText("Marca");
+        jLabel3.setText("Marca :");
 
-        jLabel4.setText("Patente :");
+        jLabel4.setText("Patente (xxx-123) :");
 
         jLabel5.setText("Plazas :");
 
@@ -191,40 +194,66 @@ public class JIFCrearColectivo extends javax.swing.JInternalFrame {
              String modelo=jtModelo.getText();
               String marca=jtMarca.getText();
                String matricula=jtMatricula.getText(); 
-             Integer plaza=Integer.parseInt(jtPlazas.getText());
+             Integer plaza=Integer.valueOf(jtPlazas.getText());
              
         
         
         
-        if(modelo.isEmpty()||marca.isEmpty()|| matricula.isEmpty()|| plaza==null){
-            
-        JOptionPane.showMessageDialog(null, "no puede dejar campos vacios");
-        return;
-        }
-        
-        if(coleActual==null){
-        coleActual=new Colectivo(matricula,marca,modelo,plaza,true);
-        coleMetodos.guardarColectivo(coleActual);
-        
-        }else{
-            coleActual.setModelo(modelo);
-        coleActual.setMarca(marca);
-        coleActual.setMatricula(matricula);
-        coleActual.setCapacidad(plaza);
-        
-       
-        
-        coleMetodos.modificarColectivo(coleActual);
-        
-        }
+      
+      String patronModelo="^[0-9]{4}$";
+      String patronMarca="^[a-zA-Z]+$";
+      String patronMatricula="^[a-zA-Z]{3}[-][0-9]{3}$";
+      String patronCapacidad="^-?[0-9]{2}+(\\\\.[0-9]+)?$";
+      
+      if(!modelo.matches(patronModelo)){
+     jtModelo.setBorder(new LineBorder(Color.RED, 2));
+      JOptionPane.showMessageDialog(this, "debe ingresar un modelo de año valido");
+      
+      return;}
+     
+      if(!marca.matches(patronMarca)){
+      jtMarca.setBorder(new LineBorder(Color.RED, 2));
+      JOptionPane.showMessageDialog(this, "debe ingresar una marca de colectivos");
+      
+      return;
+      }
+      if(!matricula.matches(patronMatricula)){
+      jtMatricula.setBorder(new LineBorder(Color.RED, 2));
+      JOptionPane.showMessageDialog(this, "debe ingresar una patente alfanumerica(xxx111)");
+      
+      return;
+      }
+       Pattern pattern = Pattern.compile(patronCapacidad);
+        Matcher matcher = pattern.matcher(plaza.toString());
+            if (!matcher.matches()) {
+                jtPlazas.setBorder(new LineBorder(Color.RED, 2));
+                 JOptionPane.showMessageDialog(this, "debe ingresar el numero de asientos ");
+           
+            return;} 
+      
           
-        
-        //limpiarCampos();
-           // JOptionPane.showMessageDialog(null, "colectivo Guardado correctamente");
+          if(coleActual==null){
+          coleActual=new Colectivo(matricula,marca,modelo,plaza,true);
+          
+           jtMarca.setBorder(new LineBorder(Color.black, 1));
+            jtMatricula.setBorder(new LineBorder(Color.black, 1));
+             jtPlazas.setBorder(new LineBorder(Color.black, 1));
+              jtModelo.setBorder(new LineBorder(Color.black, 1));
+              coleMetodos.guardarColectivo(coleActual);
+      }else{
+          coleActual.setModelo(modelo);
+          coleActual.setMarca(marca);
+          coleActual.setMatricula(matricula);
+          coleActual.setCapacidad(plaza);
+
+          coleMetodos.modificarColectivo(coleActual);
+          
+      
+             }
+           
+        } catch (HeadlessException | NumberFormatException e){
+    JOptionPane.showMessageDialog(null,"Llene todos los campos o coloque bien los datos" );
             
-        } catch (Exception e){
-    JOptionPane.showMessageDialog(null,"error al crear Colectivo nuevo");
-            e.printStackTrace();
             
             
             

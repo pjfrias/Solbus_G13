@@ -260,7 +260,7 @@ public class GestionRutas extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Ruta nueva = new Ruta(jTorigen.getText(), jTdestino.getText(), 1);
-        Horario nuevo = new Horario(LocalTime.MIN, LocalTime.MAX, ruta, isIcon)
+        Horario nuevo = new Horario(LocalTime.MIN, LocalTime.MAX, ruta, isIcon);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
