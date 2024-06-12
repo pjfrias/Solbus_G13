@@ -41,7 +41,7 @@ public class HorarioData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla horarios" + ex.getMessage());
         }
-    }
+    }   
 
     public void editarHorarioId(Horario horas) {
         try {
@@ -54,6 +54,7 @@ public class HorarioData {
             ps.setTime(1, salida);
             ps.setTime(2, llegada);
             ps.setInt(3, horas.getIdHorario());
+            
             int fila = ps.executeUpdate();
 
             if (fila != 0) {
@@ -64,13 +65,14 @@ public class HorarioData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla hora");
         }
     }
-
+    
+    
     public void borrarHorarioPorId(Horario horas) {
         try {
             String sql = "update horarios set estado = 0 where id_horario = ? ";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, horas.getIdHorario());
-            System.out.println(ps);
+            
             int fila = ps.executeUpdate();
 
             if (fila != 0) {
@@ -103,9 +105,10 @@ public class HorarioData {
                 horarios.add(horario);
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a una tabla");
-        }
+            JOptionPane.showMessageDialog(null, "Error al acceder a una tabla v");
+        }        
         return horarios;
+        
     }
 
     public Horario buscarHorarioID(int id) {
@@ -128,10 +131,11 @@ public class HorarioData {
                 horario.setRuta(nueva);                
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a una tabla");
+            JOptionPane.showMessageDialog(null, "Error al acceder a una tabla n");
         }
         return horario;
     }
+
     
     //AGREGADO JAVIER
     public ArrayList<Horario> buscarHorariosRuta(Ruta ruta) {
@@ -146,7 +150,7 @@ public class HorarioData {
             ps.setInt(1, ruta.getIdRuta());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Horario horario = new Horario();
+            Horario horario = new Horario();
                 horario.setIdHorario(rs.getInt("id_horario"));
                 horario.setRuta(new Ruta(rs.getInt("id_ruta"), rs.getString("origen"), rs.getString("destino"), rs.getTime("duracion_estimada").toLocalTime(), true));
                 horario.setSalida(rs.getTime("hora_salida").toLocalTime());
@@ -161,7 +165,7 @@ public class HorarioData {
         return horarios;
     }
     
-    public Horario buscarHorariosPasaje(int idPasaje) {
+     public Horario buscarHorariosPasaje(int idPasaje) {
         Horario horario = new Horario();
         Ruta ruta = new Ruta();
                 
@@ -191,6 +195,34 @@ public class HorarioData {
             ex.printStackTrace();
         }
         return horario;
+    }     
+
+    public Horario buscarHorarioIDRuta(Ruta ruta) {
+        Horario horario = new Horario();
+        try {
+            String sql = "select rutas.id_ruta,origen,destino,duracion_estimada,id_horario,hora_salida, hora_llegada"
+                    + " from rutas join horarios on horarios.id_ruta = rutas.id_ruta"
+                    + " where rutas.estado = 1 and horarios.estado = 1 and rutas.id_ruta = ?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, ruta.getIdRuta());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Ruta nueva = new Ruta();                
+                nueva.setOrigen(rs.getString("origen"));
+                nueva.setDestino(rs.getString("destino"));
+                nueva.setDuracion(rs.getTime("duracion_estimada").toLocalTime());
+                horario.setIdHorario(rs.getInt("id_horario"));
+                horario.setSalida(rs.getTime("hora_salida").toLocalTime());
+                horario.setLlegada(rs.getTime("hora_llegada").toLocalTime());                
+                horario.setRuta(nueva);                
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a una tabla z");
+        }
+        System.out.println(horario);
+        return horario;
+        
     }
 
 }

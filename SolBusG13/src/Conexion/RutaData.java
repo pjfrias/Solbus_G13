@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -25,7 +26,7 @@ public class RutaData {
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, horas.getRuta().getOrigen());
-            ps.setString(2, horas.getRuta().getOrigen());
+            ps.setString(2, horas.getRuta().getDestino());
             ps.setTime(3, java.sql.Time.valueOf(horas.getRuta().getDuracion()));
 
             int registros = ps.executeUpdate();
@@ -45,11 +46,15 @@ public class RutaData {
 
     public void editarRutaporId(Ruta ruta) {
         try {
-            String sql = "update rutas set origen = ?,destino = ? where id_ruta = ? ";
+            String sql = "update rutas set origen = ?,destino = ?,duracion_estimada = ? where id_ruta = ? ";
             PreparedStatement ps = con.prepareStatement(sql);
+            Time duracion = Time.valueOf(ruta.getDuracion());
+            
             ps.setString(1, ruta.getOrigen());
             ps.setString(2, ruta.getDestino());
-            ps.setInt(3, ruta.getIdRuta());
+            ps.setTime(3, duracion);
+            ps.setInt(4, ruta.getIdRuta());
+            
             int fila = ps.executeUpdate();
 
             if (fila != 0) {
@@ -85,7 +90,8 @@ public class RutaData {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, ruta.getIdRuta());
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){               
+            while(rs.next()){
+                nueva.setIdRuta(rs.getInt("id_ruta"));
                 nueva.setOrigen(rs.getString("origen"));
                 nueva.setDestino(rs.getString("destino"));
                 nueva.setDuracion(rs.getTime("duracion_estimada").toLocalTime());                
@@ -93,6 +99,27 @@ public class RutaData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ruta");
         }
+        return nueva;
+    }
+    public Ruta buscarRutaOrigenDestino(Ruta ruta) {
+        Ruta nueva=new Ruta();
+        
+        try {
+            String sql = "select id_ruta,origen,destino,duracion_estimada from rutas where estado = 1 and origen = ? and destino = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1,ruta.getOrigen());
+            ps.setString(2,ruta.getDestino());
+            ResultSet rs = ps.executeQuery();        
+            
+            while(rs.next()){
+                nueva.setIdRuta(rs.getInt("id_ruta"));                
+                nueva.setOrigen(rs.getString("origen"));
+                nueva.setDestino(rs.getString("destino"));
+                nueva.setDuracion(rs.getTime("duracion_estimada").toLocalTime());                
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ruta");
+        }        
         return nueva;
     }
 

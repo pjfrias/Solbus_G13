@@ -84,6 +84,11 @@ public class JFSolBus extends javax.swing.JFrame {
         jMRutasHorarios.setText("Rutas y Horarios");
 
         jMIRutas.setText("Rutas");
+        jMIRutas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIRutasActionPerformed(evt);
+            }
+        });
         jMRutasHorarios.add(jMIRutas);
 
         jMIHorarios.setText("Horarios");
@@ -204,18 +209,27 @@ public class JFSolBus extends javax.swing.JFrame {
         jDesktopPane1.moveToFront(diponibles);
     }//GEN-LAST:event_jmiDisponiblesActionPerformed
 
-    private void jMPasajerosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMPasajerosMouseClicked
+
+    private void jMPasajerosMouseClicked(java.awt.event.MouseEvent evt) {                                         
         // TODO add your handling code here:
         JIFPasajero pasajero = new JIFPasajero();
         jDesktopPane1.removeAll();
         jDesktopPane1.repaint();
-        
-       
-        
-        pasajero.setVisible(true);
+         pasajero.setVisible(true);
         jDesktopPane1.add(pasajero);
         jDesktopPane1.moveToFront(pasajero);
-    }//GEN-LAST:event_jMPasajerosMouseClicked
+    }
+    
+    private void jMIRutasActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        GestionRutas rutas = new GestionRutas();
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();        
+        rutas.setVisible(true);
+        jDesktopPane1.add(rutas);
+        jDesktopPane1.moveToFront(rutas);
+    }    
+       
+        
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
