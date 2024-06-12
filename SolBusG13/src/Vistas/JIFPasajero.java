@@ -2,26 +2,36 @@ package Vistas;
 
 import Conexion.PasajeroData;
 import Entidades.Pasajero;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 public class JIFPasajero extends javax.swing.JInternalFrame {
 
     private PasajeroData pasajeroData;
     private Pasajero pasajero;
-    
+
     public JIFPasajero() {
         initComponents();
         pasajeroData = new PasajeroData();
         pasajero = null;
     }
-    
-    public void limpiarCampos(){
+
+    public void limpiarCampos() {
         txtDocumento.setText("");
         txtApellido.setText("");
         txtNombre.setText("");
         txtCorreo.setText("");
         txtTelefono.setText("");
         pasajero = null;
+    }
+
+    public static boolean isValidEmail(String email) {
+        final String EMAIL_PATTERN = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        final Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+        if (email == null) return false;
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
     @SuppressWarnings("unchecked")
@@ -200,35 +210,42 @@ public class JIFPasajero extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        try{
+        try {
             pasajero = pasajeroData.bucarPasajero(Integer.parseInt(txtDocumento.getText()));
-            if(pasajero != null){
+            if (pasajero != null) {
                 txtApellido.setText(pasajero.getApellido());
                 txtNombre.setText(pasajero.getNombre());
                 txtCorreo.setText(pasajero.getCorreo());
                 txtTelefono.setText(pasajero.getTelefono());
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ingrese un formato de documento valido");
-        }   
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        try{
-           int dni = Integer.parseInt(txtDocumento.getText());
-           String apellido = txtApellido.getText();
-           String nombre = txtNombre.getText();
-           String correo = txtCorreo.getText();
-           String telefono = txtTelefono.getText();
-           
-           if(pasajero == null){
-               pasajeroData.guardarPasajero(new Pasajero(nombre, apellido, dni+"", correo, telefono, true));
-           }else{
-               pasajeroData.modificarPasajero(new Pasajero(pasajero.getIdPasajero(), nombre, apellido, dni+"", correo, telefono, true));
-           }
-           
-           limpiarCampos();
-        }catch(Exception e){
+        try {
+            int dni = Integer.parseInt(txtDocumento.getText());
+            String apellido = txtApellido.getText();
+            String nombre = txtNombre.getText();
+            String correo = txtCorreo.getText();
+            String telefono = txtTelefono.getText();
+
+            if (!isValidEmail(correo)) {
+                JOptionPane.showMessageDialog(null, "Ingrese un correo electrónico válido");
+                return;
+            }
+
+            if (pasajero == null) {
+                pasajeroData.guardarPasajero(new Pasajero(nombre, apellido, String.valueOf(dni), correo, telefono, true));
+            } else {
+                pasajeroData.modificarPasajero(new Pasajero(pasajero.getIdPasajero(), nombre, apellido, String.valueOf(dni), correo, telefono, true));
+            }
+
+            limpiarCampos();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Ingrese un número de documento válido");
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ingrese todos los campos");
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -238,8 +255,11 @@ public class JIFPasajero extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        if(pasajero.getIdPasajero() == 0) JOptionPane.showMessageDialog(null, "No hay pasajero para eliminar");
-        else pasajeroData.eliminarPasajero(pasajero.getIdPasajero());
+        if (pasajero.getIdPasajero() == 0) {
+            JOptionPane.showMessageDialog(null, "No hay pasajero para eliminar");
+        } else {
+            pasajeroData.eliminarPasajero(pasajero.getIdPasajero());
+        }
         limpiarCampos();
     }//GEN-LAST:event_btnBorrarActionPerformed
 
