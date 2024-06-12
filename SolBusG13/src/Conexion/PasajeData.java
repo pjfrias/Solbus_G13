@@ -39,8 +39,9 @@ public class PasajeData {
             ps.setDouble(7, pasaje.getPrecio());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
+            
             if (rs.next()) {
-                pasaje.setIdPasaje(rs.getInt(0));/* aca tira un error, si mal no recuero el profesor dijo que
+                pasaje.setIdPasaje(rs.getInt(1));/* aca tira un error, si mal no recuero el profesor dijo que
                                                                    cuando usas ps.getgeneratedkeys(), las comnas tienen otro nombre por lo que lo podes buscar o le pones un cero*/
                 JOptionPane.showMessageDialog(null, "Pasaje cargado con exito.");
             }

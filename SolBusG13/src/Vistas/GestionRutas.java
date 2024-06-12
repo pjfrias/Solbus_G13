@@ -38,11 +38,12 @@ public class GestionRutas extends javax.swing.JInternalFrame {
         datosHora = new HorarioData();
         datosRuta = new RutaData();
         armarCabecera();
-        cargarFilas();
+        //cargarFilas();
         jTorigen.setEnabled(false);
         jTdestino.setEnabled(false);
         jThoraSalida.setEnabled(false);
         jThoraLlegada.setEnabled(false);
+        jRactivas.setSelected(true);
 
     }
 
@@ -76,6 +77,8 @@ public class GestionRutas extends javax.swing.JInternalFrame {
         jLerror1 = new javax.swing.JLabel();
         jLerror2 = new javax.swing.JLabel();
         jLerror3 = new javax.swing.JLabel();
+        jRinactivas = new javax.swing.JRadioButton();
+        jRactivas = new javax.swing.JRadioButton();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -134,7 +137,7 @@ public class GestionRutas extends javax.swing.JInternalFrame {
             }
         });
 
-        jBeliminar.setText("Eliminar Ruta");
+        jBeliminar.setText("Desactivar");
         jBeliminar.setPreferredSize(new java.awt.Dimension(130, 23));
         jBeliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -321,6 +324,20 @@ public class GestionRutas extends javax.swing.JInternalFrame {
                         .addComponent(jLerror1))))
         );
 
+        jRinactivas.setText("Inactivas");
+        jRinactivas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRinactivasActionPerformed(evt);
+            }
+        });
+
+        jRactivas.setText("Activas");
+        jRactivas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRactivasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -340,13 +357,23 @@ public class GestionRutas extends javax.swing.JInternalFrame {
                 .addGap(206, 206, 206)
                 .addComponent(jLabel6)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(139, 139, 139)
+                .addComponent(jRactivas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jRinactivas)
+                .addGap(248, 248, 248))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel6)
-                .addGap(39, 39, 39)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRinactivas)
+                    .addComponent(jRactivas))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -476,18 +503,18 @@ public class GestionRutas extends javax.swing.JInternalFrame {
 
     private void jBeditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBeditarActionPerformed
         int fila = jTrutas.getSelectedRow();
-        
+
         if (jBeditar.getText().equals("Cambiar")) {
             setDuracion();
             LocalTime duracion = LocalTime.parse(jTtiempoEstimado.getText());
             Ruta ruta = new Ruta(jTrutas.getValueAt(fila, 0) + "", jTrutas.getValueAt(fila, 1) + "", duracion, true);
-            ruta = datosRuta.buscarRutaOrigenDestino(ruta);            
+            ruta = datosRuta.buscarRutaOrigenDestino(ruta);
             Horario hora = datosHora.buscarHorarioIDRuta(ruta);
             ruta.setOrigen(jTorigen.getText());
             ruta.setDestino(jTdestino.getText());
-            ruta.setDuracion(LocalTime.parse(jTtiempoEstimado.getText()));            
+            ruta.setDuracion(LocalTime.parse(jTtiempoEstimado.getText()));
             hora.setSalida(LocalTime.parse(jThoraSalida.getText()));
-            hora.setLlegada(LocalTime.parse(jThoraLlegada.getText()));            
+            hora.setLlegada(LocalTime.parse(jThoraLlegada.getText()));
             datosHora.editarHorarioId(hora);
             datosRuta.editarRutaporId(ruta);
 
@@ -527,16 +554,51 @@ public class GestionRutas extends javax.swing.JInternalFrame {
 
     private void jBeliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBeliminarActionPerformed
         int fila = jTrutas.getSelectedRow();
-        LocalTime duracion = LocalTime.parse(jTrutas.getValueAt(fila, 4) + "");
-        Ruta ruta = new Ruta(jTrutas.getValueAt(fila, 0) + "", jTrutas.getValueAt(fila, 1) + "", duracion, true);
-        ruta = datosRuta.buscarRutaOrigenDestino(ruta);
-        Horario hora = datosHora.buscarHorarioIDRuta(ruta);
-        datosHora.borrarHorarioPorId(hora);
-        datosRuta.borrarRutaPorId(ruta);
-        borrarFilas();
-        cargarFilas();
+        if (jBeliminar.getText().equals("Desactivar")) {            
+            LocalTime duracion = LocalTime.parse(jTrutas.getValueAt(fila, 4) + "");
+            Ruta ruta = new Ruta(jTrutas.getValueAt(fila, 0) + "", jTrutas.getValueAt(fila, 1) + "", duracion, true);
+            ruta = datosRuta.buscarRutaOrigenDestino(ruta);
+            Horario hora = datosHora.buscarHorarioIDRuta(ruta);
+            datosHora.borrarHorarioPorId(hora);
+            datosRuta.borrarRutaPorId(ruta);
+            borrarFilas();
+            cargarFilas();
+        } else {
+            LocalTime duracion = LocalTime.parse(jTrutas.getValueAt(fila, 4) + "");
+            Ruta ruta = new Ruta(jTrutas.getValueAt(fila, 0) + "", jTrutas.getValueAt(fila, 1) + "", duracion, true);
+            ruta = datosRuta.buscarRutaOrigenDestinoInactivo(ruta);
+            Horario hora = datosHora.buscarHorarioIDRutaInactivo(ruta);
+            datosHora.activarHorarioPorId(hora);
+            datosRuta.activarRutaPorId(ruta);
+            borrarFilas();
+            cargarFilas();
+        }
+
     }//GEN-LAST:event_jBeliminarActionPerformed
 
+    private void jRactivasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRactivasActionPerformed
+        if (jRactivas.isSelected()) {
+            jRinactivas.setSelected(false);
+        } else {
+            jRinactivas.setSelected(true);
+        }
+        jBeliminar.setText("Desactivar");
+
+        borrarFilas();
+        cargarFilas();// TODO add your handling code here:
+    }//GEN-LAST:event_jRactivasActionPerformed
+
+    private void jRinactivasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRinactivasActionPerformed
+        if (jRinactivas.isSelected()) {
+            jRactivas.setSelected(false);
+        } else {
+            jRactivas.setSelected(true);
+        }
+        jBeliminar.setText("Activar");
+
+        borrarFilas();
+        cargarFilas();// TODO add your handling code here:
+    }//GEN-LAST:event_jRinactivasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -559,6 +621,8 @@ public class GestionRutas extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JRadioButton jRactivas;
+    private javax.swing.JRadioButton jRinactivas;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTdestino;
     private javax.swing.JTextField jThoraLlegada;
@@ -587,9 +651,15 @@ public class GestionRutas extends javax.swing.JInternalFrame {
 
     private void cargarFilas() {
 
-        List<Horario> horas = datosHora.buscarHorarios();
+        List<Horario> horas; 
 
         model = (DefaultTableModel) jTrutas.getModel();
+        
+        if (jRactivas.isSelected()) {
+            horas = datosHora.buscarHorarios();
+        } else {
+            horas = datosHora.buscarHorariosInactivos();
+        }
 
         for (Horario hora : horas) {
             model.addRow(new Object[]{

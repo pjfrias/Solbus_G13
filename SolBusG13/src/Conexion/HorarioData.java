@@ -83,6 +83,23 @@ public class HorarioData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla horario");
         }
     }
+    
+    public void activarHorarioPorId(Horario horas) {
+        try {
+            String sql = "update horarios set estado = 1 where id_horario = ? ";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, horas.getIdHorario());
+            
+            int fila = ps.executeUpdate();
+
+            if (fila != 0) {
+                JOptionPane.showMessageDialog(null, "Se activo el horario.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla horario");
+        }
+    }
 
     public List buscarHorarios() {
         List<Horario> horarios = new ArrayList<>();
@@ -90,6 +107,33 @@ public class HorarioData {
             String sql = "select rutas.id_ruta,origen,destino,duracion_estimada,hora_salida, hora_llegada"
                     + " from rutas join horarios on horarios.id_ruta = rutas.id_ruta"
                     + " where rutas.estado = 1 and horarios.estado = 1";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Horario horario = new Horario();
+                Ruta nueva = new Ruta();
+                nueva.setOrigen(rs.getString("origen"));
+                nueva.setDestino(rs.getString("destino"));
+                nueva.setDuracion(rs.getTime("duracion_estimada").toLocalTime());
+                horario.setIdHorario(rs.getInt("id_ruta"));
+                horario.setSalida(rs.getTime("hora_salida").toLocalTime());
+                horario.setLlegada(rs.getTime("hora_llegada").toLocalTime());                
+                horario.setRuta(nueva);
+                horarios.add(horario);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a una tabla v");
+        }        
+        return horarios;
+        
+    }
+    
+    public List buscarHorariosInactivos() {
+        List<Horario> horarios = new ArrayList<>();
+        try {
+            String sql = "select rutas.id_ruta,origen,destino,duracion_estimada,hora_salida, hora_llegada"
+                    + " from rutas join horarios on horarios.id_ruta = rutas.id_ruta"
+                    + " where rutas.estado = 0 and horarios.estado = 0";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -203,6 +247,34 @@ public class HorarioData {
             String sql = "select rutas.id_ruta,origen,destino,duracion_estimada,id_horario,hora_salida, hora_llegada"
                     + " from rutas join horarios on horarios.id_ruta = rutas.id_ruta"
                     + " where rutas.estado = 1 and horarios.estado = 1 and rutas.id_ruta = ?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, ruta.getIdRuta());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Ruta nueva = new Ruta();                
+                nueva.setOrigen(rs.getString("origen"));
+                nueva.setDestino(rs.getString("destino"));
+                nueva.setDuracion(rs.getTime("duracion_estimada").toLocalTime());
+                horario.setIdHorario(rs.getInt("id_horario"));
+                horario.setSalida(rs.getTime("hora_salida").toLocalTime());
+                horario.setLlegada(rs.getTime("hora_llegada").toLocalTime());                
+                horario.setRuta(nueva);                
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a una tabla z");
+        }
+        System.out.println(horario);
+        return horario;
+        
+    }
+    
+     public Horario buscarHorarioIDRutaInactivo(Ruta ruta) {
+        Horario horario = new Horario();
+        try {
+            String sql = "select rutas.id_ruta,origen,destino,duracion_estimada,id_horario,hora_salida, hora_llegada"
+                    + " from rutas join horarios on horarios.id_ruta = rutas.id_ruta"
+                    + " where rutas.estado = 0 and horarios.estado = 0 and rutas.id_ruta = ?";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, ruta.getIdRuta());

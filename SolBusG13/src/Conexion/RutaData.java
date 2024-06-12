@@ -81,6 +81,22 @@ public class RutaData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ruta");
         }
     }
+    
+    public void activarRutaPorId(Ruta ruta) {
+        try {
+            String sql = "update rutas set estado = 1 where id_ruta = ? ";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, ruta.getIdRuta());
+            int fila = ps.executeUpdate();
+
+            if (fila != 0) {
+                JOptionPane.showMessageDialog(null, "Se activo la ruta.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ruta");
+        }
+    }
 
     public Ruta buscarRutasBase(Ruta ruta) {
         Ruta nueva=new Ruta();
@@ -106,6 +122,28 @@ public class RutaData {
         
         try {
             String sql = "select id_ruta,origen,destino,duracion_estimada from rutas where estado = 1 and origen = ? and destino = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1,ruta.getOrigen());
+            ps.setString(2,ruta.getDestino());
+            ResultSet rs = ps.executeQuery();        
+            
+            while(rs.next()){
+                nueva.setIdRuta(rs.getInt("id_ruta"));                
+                nueva.setOrigen(rs.getString("origen"));
+                nueva.setDestino(rs.getString("destino"));
+                nueva.setDuracion(rs.getTime("duracion_estimada").toLocalTime());                
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ruta");
+        }        
+        return nueva;
+    }
+    
+    public Ruta buscarRutaOrigenDestinoInactivo(Ruta ruta) {
+        Ruta nueva=new Ruta();
+        
+        try {
+            String sql = "select id_ruta,origen,destino,duracion_estimada from rutas where estado = 0 and origen = ? and destino = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1,ruta.getOrigen());
             ps.setString(2,ruta.getDestino());
