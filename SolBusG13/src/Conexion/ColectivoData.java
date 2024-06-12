@@ -5,7 +5,12 @@
 package Conexion;
 
 import Entidades.Colectivo;
+import Entidades.Horario;
+import Entidades.Pasajero;
+import Entidades.Pasaje;
+import Entidades.Ruta;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -159,6 +164,166 @@ public class ColectivoData {
             JOptionPane.showMessageDialog(null, " Error al listar los colectivos" + ex.getMessage());
         }
         return coles;
+    }
+    
+    //AGREGADO JAVIER
+    public Colectivo buscarColectivoPasajesVendidos(Horario horario, Date fecha){
+        Colectivo cole = null;
+        try{
+            String sql ="select c.id_colectivo, c.matricula, c.marca, c.modelo, c.capacidad, count(p.id_pasaje)\n" +
+                        "from colectivos c\n" +
+                        "join pasajes p on (c.id_colectivo = p.id_colectivo)\n" +
+                        "join rutas r on (r.id_ruta = p.id_ruta)\n" +
+                        "join horarios h on (h.id_ruta = p.id_ruta)\n" +
+                        "where h.id_horario = ? and p.fecha_viaje = ? and c.estado = 1\n" +
+                        "group by c.id_colectivo, c.matricula, c.marca, c.modelo, c.capacidad\n" +
+                        "having count(p.id_pasaje) < c.capacidad";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, horario.getIdHorario());
+            ps.setDate(2, fecha);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                cole = new Colectivo();
+                cole.setId_colectivo(rs.getInt("Id_colectivo"));
+                cole.setMarca(rs.getString("marca"));
+                cole.setModelo(rs.getString("modelo"));
+                cole.setMatricula(rs.getString("matricula"));
+                cole.setCapacidad(rs.getInt("capacidad"));
+            }
+            ps.close();
+        }catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error al obtener colectivo disponible");
+            ex.printStackTrace();
+        }
+        return cole;
+    }
+    
+    public int verLugaresOcupados(Colectivo colectivo, Horario horario, Date fecha){
+        int pasajesVendidos = 0;
+        try{
+            String sql ="select count(p.id_pasaje) as pasajes_vendidos\n" +
+                        "from pasajes p\n" +
+                        "join colectivos c on (c.id_colectivo = p.id_colectivo)\n" +
+                        "join rutas r on (r.id_ruta = p.id_ruta)\n" +
+                        "join horarios h on (h.id_ruta = p.id_ruta)\n" +
+                        "where h.id_horario = ? and p.fecha_viaje = ? and c.id_colectivo = ?\n";
+            
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, horario.getIdHorario());
+            ps.setDate(2, fecha);
+            ps.setInt(3, colectivo.getId_colectivo());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                pasajesVendidos = rs.getInt("pasajes_vendidos");
+            }
+            ps.close();
+        }catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error al obtener pasajes vendidos");
+        }
+        return pasajesVendidos;
+    }
+    
+    public ArrayList<Pasajero> verPasajerosColectivo(Colectivo colectivo, Horario horario, Date fecha){
+        ArrayList<Pasajero> pasajeros = new ArrayList<>();
+        Pasajero pasajero;
+        try {
+            String sql ="select p.id_pasajero, p.nombre, p.apellido, p.dni, p.correo, p.telefono\n" +
+                        "from pasajeros p\n" +
+                        "join pasajes pas on (p.id_pasajero = pas.id_pasajero)\n" +
+                        "join rutas r on (r.id_ruta = pas.id_ruta)\n" +
+                        "join horarios h on (h.id_ruta = r.id_ruta)\n" +
+                        "join colectivos c on (pas.id_colectivo = c.id_colectivo)\n" +
+                        "where h.id_horario = ? and pas.fecha_viaje = ? and c.id_colectivo = ?";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, horario.getIdHorario());
+            ps.setDate(1, fecha);
+            ps.setInt(3, colectivo.getId_colectivo());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                pasajero = new Pasajero();
+                pasajero.setIdPasajero(rs.getInt("id_pasajero"));
+                pasajero.setNombre(rs.getString("nombre"));
+                pasajero.setApellido(rs.getString("apellido"));
+                pasajero.setDni(rs.getString("dni"));
+                pasajero.setCorreo(rs.getString("correo"));
+                pasajero.setTelefono(rs.getString("telefono"));
+                pasajeros.add(pasajero);
+            }
+            ps.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se pudo obtener la lista de pasajeros");
+        }
+        return pasajeros;
+    }
+    
+    public ArrayList<Pasaje> verPasajerosAsientos(Colectivo colectivo, Horario horario, Date fecha){
+        ArrayList<Pasaje> pasajes = new ArrayList<>();
+        Pasaje pasaje;
+        try {
+            String sql ="select p.id_pasaje, p.id_pasajero, p.id_colectivo, p.id_ruta, p.fecha_viaje, p.hora_viaje, p.asiento, "
+                    + "pas.nombre, pas.apellido, pas.dni, pas.correo, pas.telefono, c.matricula, c.marca, c.modelo, c.capacidad, "
+                    + "r.origen, r.destino, r.duracion_estimada\n" +
+                    "from pasajes p\n" +
+                    "join pasajeros pas on (p.id_pasajero = pas.id_pasajero)\n" +
+                    "join rutas r on (r.id_ruta = p.id_ruta)\n" +
+                    "join horarios h on (h.id_ruta = r.id_ruta)\n" +
+                    "join colectivos c on (p.id_colectivo = c.id_colectivo)\n" +
+                    "where h.id_horario = ? and p.fecha_viaje = ? and c.id_colectivo = ?";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, horario.getIdHorario());
+            ps.setDate(2, fecha);
+            ps.setInt(3, colectivo.getId_colectivo());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                pasaje = new Pasaje();
+                pasaje.setIdPasaje(rs.getInt("id_pasaje"));
+                pasaje.setPasajero(new Pasajero(rs.getInt("id_pasajero"),rs.getString("nombre"), rs.getString("apellido"), rs.getString("dni"), rs.getString("correo"), rs.getString("telefono"), true));
+                pasaje.setColectivo(new Colectivo(rs.getInt("id_colectivo"), rs.getString("matricula"), rs.getString("marca"), rs.getString("modelo"), rs.getInt("capacidad"), true));
+                pasaje.setRutas(new Ruta(rs.getInt("id_ruta"), rs.getString("origen"), rs.getString("destino"), rs.getTime("duracion_estimada").toLocalTime(), true));
+                pasaje.setFechaViaje(rs.getDate("fecha_viaje").toLocalDate());
+                pasaje.setHoraViaje(rs.getTime("hora_viaje").toLocalTime());
+                pasaje.setAsiento(rs.getInt("asiento"));
+                pasajes.add(pasaje);
+            }
+            ps.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se pudo obtener la lista de pasajeros y asientos");
+            e.printStackTrace();
+        }
+        return pasajes;
+    }
+
+    public ArrayList<Colectivo> verColectivosVacios(Date fecha){
+        ArrayList<Colectivo> colectivos = new ArrayList<>();
+        Colectivo colectivo = null;
+        try {
+            String sql = "SELECT c.id_colectivo, c.matricula, c.marca, c.modelo, c.capacidad\n" +
+                        "FROM colectivos c\n" +
+                        "WHERE NOT EXISTS (\n" +
+                        "    SELECT 1\n" +
+                        "    FROM pasajes p\n" +
+                        "    WHERE c.id_colectivo = p.id_colectivo\n" +
+                        "    AND p.fecha_viaje = ?\n" +
+                        ")\n" +
+                        "AND c.estado = TRUE;";
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setDate(1, fecha);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                colectivo = new Colectivo();
+                colectivo.setId_colectivo(rs.getInt("id_colectivo"));
+                colectivo.setMatricula(rs.getString("matricula"));
+                colectivo.setMarca(rs.getString("marca"));
+                colectivo.setModelo(rs.getString("modelo"));
+                colectivo.setCapacidad(rs.getInt("capacidad"));
+                colectivo.setEstado(true);
+                colectivos.add(colectivo);
+            }
+            ps.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se pudo obtener lista de colectivos disponibles");
+        }
+        return colectivos;
     }
 
 }

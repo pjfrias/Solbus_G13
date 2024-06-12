@@ -185,7 +185,7 @@ public class PasajeData {
                 + "    p.hora_viaje,\n"
                 + "    p.asiento,\n"
                 + "    p.precio,\n"
-                + "    p.estado AS estado_pasaje,\n"
+            //    + "    p.estado AS estado_pasaje,\n"
                 + "    h.id_horario,\n"
                 + "    h.hora_salida,\n"
                 + "    h.hora_llegada,\n"
@@ -216,7 +216,7 @@ public class PasajeData {
                 pasaje.setHoraViaje(rs.getTime("hora_viaje").toLocalTime());
                 pasaje.setAsiento(rs.getInt("asiento"));
                 pasaje.setPrecio(rs.getDouble("precio"));
-                pasaje.setEstado(rs.getBoolean("estado_pasaje"));
+            //    pasaje.setEstado(rs.getBoolean("estado_pasaje"));
 
                 // Crear y asignar Pasajero
                 Pasajero pasajero = new Pasajero();
@@ -375,10 +375,9 @@ public class PasajeData {
     
     public void modificarPasaje(Pasaje pasaje){
         String sql = "update pasajes set id_pasajero = ?, id_colectivo = ?, id_ruta = ?, fecha_viaje = ?, hora_viaje = ?, asiento = ?, precio = ? WHERE id_pasaje = ?"; 
-        PreparedStatement ps = null; 
-
+        PreparedStatement ps = null;
         try{ 
-            ps = con.prepareStatement(sql); 
+            ps = con.prepareStatement(sql);
             ps.setInt(1, pasaje.getPasajero().getIdPasajero());
             ps.setInt(2, pasaje.getColectivo().getId_colectivo());
             ps.setInt(3, pasaje.getRutas().getIdRuta());
@@ -388,9 +387,9 @@ public class PasajeData {
             ps.setDouble(7, pasaje.getPrecio());
             ps.setInt(8, pasaje.getIdPasaje());
             
-            int exito = ps.executeUpdate(); 
+            int fila = ps.executeUpdate(); 
 
-            if(exito == 1){ 
+            if(fila == 1){ 
                 JOptionPane.showMessageDialog(null, "Pasaje modificado Exitosamente."); 
             }else{ 
             JOptionPane.showMessageDialog(null, "El pasaje no se encuentra activo en la Base de Datos"); 
@@ -402,8 +401,8 @@ public class PasajeData {
     }
     
     public void eliminarPasaje(int idPasaje){
-        try { 
-            String sql = "update pasaje set estado = 0 WHERE id_pasaje = ? "; 
+       try { 
+            String sql = "delete from pasajes WHERE id_pasaje = ? "; 
             PreparedStatement ps = con.prepareStatement(sql); 
             ps.setInt(1, idPasaje); 
             int fila=ps.executeUpdate(); 
@@ -413,7 +412,8 @@ public class PasajeData {
             } 
             ps.close(); 
             }catch(SQLException e){ 
-                JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Pasaje"); 
+                JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Pasaje");
+                e.printStackTrace();
             } 
     }
 

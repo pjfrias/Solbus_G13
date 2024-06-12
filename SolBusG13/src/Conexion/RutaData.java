@@ -122,4 +122,25 @@ public class RutaData {
         }
         return horarios;
     }
+    
+    //AGREGADO JAVIER
+    public ArrayList<Ruta> buscarRutas(){
+        ArrayList<Ruta> rutas = new ArrayList<>();
+        try {
+            String sql = "select id_ruta,origen,destino,duracion_estimada from rutas where estado = 1";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){   
+                Ruta nueva = new Ruta();
+                nueva.setIdRuta(rs.getInt("id_ruta"));
+                nueva.setOrigen(rs.getString("origen"));
+                nueva.setDestino(rs.getString("destino"));
+                nueva.setDuracion(rs.getTime("duracion_estimada").toLocalTime());
+                rutas.add(nueva);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ruta");
+        }
+        return rutas;
+    }
 }

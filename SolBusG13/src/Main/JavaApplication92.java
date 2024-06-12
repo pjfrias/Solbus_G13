@@ -5,8 +5,6 @@ import Conexion.*;
 import Entidades.*;
 
 import Vistas.JFSolBus;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import javax.swing.JFrame;
 
 public class JavaApplication92 {
@@ -17,11 +15,11 @@ public class JavaApplication92 {
         solBus.setExtendedState(JFrame.MAXIMIZED_BOTH); //aparece la pantalla maximizada
         solBus.setVisible(true);
         
-        Colectivo uno = new Colectivo(1,"aaa123", "ford", "uno", 32, true);
-        Ruta primera = new Ruta(1,"villa merceds","san luis", LocalTime.of(1, 10), true);
-        Horario primer = new Horario(2,LocalTime.of(13, 0), LocalTime.of(14,10), primera, true);
-        Pasajero nuevo = new Pasajero(1,"juan","manuel", "12222226", "correo@correo3.com", "2657111111", true);
-        Pasaje pasaje = new Pasaje(1,nuevo, uno, primera, LocalDate.of(2024, 6, 8), LocalTime.of(13, 0), 0, 0, true);
+//        Colectivo uno = new Colectivo(1,"aaa123", "ford", "uno", 32, true);
+//        Ruta primera = new Ruta(1,"villa merceds","san luis", LocalTime.of(1, 10), true);
+//        Horario primer = new Horario(2,LocalTime.of(13, 0), LocalTime.of(14,10), primera, true);
+//        Pasajero nuevo = new Pasajero(1,"juan","manuel", "12222226", "correo@correo3.com", "2657111111", true);
+//        Pasaje pasaje = new Pasaje(1,nuevo, uno, primera, LocalDate.of(2024, 6, 8), LocalTime.of(13, 0), 0, 0, true);
         
         // pruebo metodos de clase datos colectivo
 //      ColectivoData datosColectivo = new ColectivoData();

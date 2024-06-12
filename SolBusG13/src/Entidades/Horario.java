@@ -83,14 +83,9 @@ public class Horario {
         this.estado = estado;
     }
 
-    @Override
+   @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Horarios{");
-        sb.append("salida=").append(salida);
-        sb.append(", llegada=").append(llegada);
-        sb.append('}');
-        return sb.toString();
+        return "Salida: "+salida+" Hs, llegada: "+llegada+" Hs";
     }
     
     

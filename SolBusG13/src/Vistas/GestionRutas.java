@@ -259,8 +259,8 @@ public class GestionRutas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTdestinoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Ruta nueva = new Ruta(jTorigen.getText(), jTdestino.getText(), 1);
-        Horario nuevo = new Horario(LocalTime.MIN, LocalTime.MAX, ruta, isIcon);
+//        Ruta nueva = new Ruta(jTorigen.getText(), jTdestino.getText(), 1);
+//        Horario nuevo = new Horario(LocalTime.MIN, LocalTime.MAX, ruta, isIcon);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -301,20 +301,20 @@ public class GestionRutas extends javax.swing.JInternalFrame {
     }
 
     private void cargarFilas() {
-        Alumno uno = (Alumno) jcalumnos.getSelectedItem();
-        if (jrinscriptas.isSelected()) {
-            materias = datos.obtenerMateriasCursadas(uno.getIdAlumno());
-        } else {
-            materias = datos.obtenerMateriasNoCursadas(uno.getIdAlumno());
-        }
-
-        for (Materia mate : materias) {
-            model.addRow(new Object[]{
-                mate.getIdMateria(),
-                mate.getNombre(),
-                mate.getAnioMateria()
-            });
-        }
-
-    }
+//        Alumno uno = (Alumno) jcalumnos.getSelectedItem();
+//        if (jrinscriptas.isSelected()) {
+//            materias = datos.obtenerMateriasCursadas(uno.getIdAlumno());
+//        } else {
+//            materias = datos.obtenerMateriasNoCursadas(uno.getIdAlumno());
+//        }
+//
+//        for (Materia mate : materias) {
+//            model.addRow(new Object[]{
+//                mate.getIdMateria(),
+//                mate.getNombre(),
+//                mate.getAnioMateria()
+//            });
+//        }
+//
+   }
 }

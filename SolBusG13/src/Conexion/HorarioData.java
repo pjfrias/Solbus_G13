@@ -132,5 +132,65 @@ public class HorarioData {
         }
         return horario;
     }
+    
+    //AGREGADO JAVIER
+    public ArrayList<Horario> buscarHorariosRuta(Ruta ruta) {
+        
+        ArrayList<Horario> horarios = new ArrayList<>();
+        try {
+            String sql = "select h.id_horario, h.id_ruta, h.hora_salida, h.hora_llegada, h.estado,"
+                    + " r.origen, r.destino, r.duracion_estimada, r.estado"
+                    + " from horarios h join rutas r on h.id_ruta = r.id_ruta"
+                    + " where h.estado = 1 and r.estado = 1 and r.id_ruta = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, ruta.getIdRuta());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Horario horario = new Horario();
+                horario.setIdHorario(rs.getInt("id_horario"));
+                horario.setRuta(new Ruta(rs.getInt("id_ruta"), rs.getString("origen"), rs.getString("destino"), rs.getTime("duracion_estimada").toLocalTime(), true));
+                horario.setSalida(rs.getTime("hora_salida").toLocalTime());
+                horario.setLlegada(rs.getTime("hora_llegada").toLocalTime());
+                horario.setEstado(true);
+                horarios.add(horario);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar los horarios de una ruta");
+            ex.printStackTrace();
+        }
+        return horarios;
+    }
+    
+    public Horario buscarHorariosPasaje(int idPasaje) {
+        Horario horario = new Horario();
+        Ruta ruta = new Ruta();
+                
+        try {
+            String sql = "select h.id_horario, r.id_ruta, h.hora_salida, h.hora_llegada, r.origen, r.destino, r.duracion_estimada"
+                    + " from horarios h"
+                    + " join rutas r on h.id_ruta = r.id_ruta"
+                    + " join pasajes p on p.id_ruta = r.id_ruta"
+                    + " where r.estado = 1 and h.estado = 1 and p.id_pasaje = ? and p.hora_viaje = h.hora_salida";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idPasaje);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ruta.setIdRuta(rs.getInt("id_ruta"));
+                ruta.setDestino(rs.getString("destino"));
+                ruta.setOrigen(rs.getString("origen"));
+                ruta.setDuracion(rs.getTime("duracion_estimada").toLocalTime());
+                ruta.setEstado(true);
+                horario.setIdHorario(rs.getInt("id_horario"));
+                horario.setSalida(rs.getTime("hora_salida").toLocalTime());
+                horario.setLlegada(rs.getTime("hora_llegada").toLocalTime());
+                horario.setEstado(true);
+                horario.setRuta(ruta);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar el horario del pasaje");
+            ex.printStackTrace();
+        }
+        return horario;
+    }
 
 }

@@ -72,13 +72,7 @@ public class Ruta {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Rutas{");
-        sb.append("origen=").append(origen);
-        sb.append(", destino=").append(destino);
-        sb.append(", duracion=").append(duracion);
-        sb.append('}');
-        return sb.toString();
+        return origen+" - "+destino+" duracion : "+duracion+" Hs";
     }
     
     
