@@ -44,7 +44,6 @@ public class JFSolBus extends javax.swing.JFrame {
         jMPasajes = new javax.swing.JMenu();
         jMPasajeros = new javax.swing.JMenu();
         jMRutasHorarios = new javax.swing.JMenu();
-        jMIRutas = new javax.swing.JMenuItem();
         jMGuardarColectivo = new javax.swing.JMenu();
         jmiDisponibles = new javax.swing.JMenuItem();
         jMICrearCole = new javax.swing.JMenuItem();
@@ -81,15 +80,11 @@ public class JFSolBus extends javax.swing.JFrame {
         jMenuBar1.add(jMPasajeros);
 
         jMRutasHorarios.setText("Rutas y Horarios");
-
-        jMIRutas.setText("Rutas");
-        jMIRutas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMIRutasActionPerformed(evt);
+        jMRutasHorarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMRutasHorariosMouseClicked(evt);
             }
         });
-        jMRutasHorarios.add(jMIRutas);
-
         jMenuBar1.add(jMRutasHorarios);
 
         jMGuardarColectivo.setText("Colectivos");
@@ -205,6 +200,16 @@ public class JFSolBus extends javax.swing.JFrame {
         jDesktopPane1.moveToFront(diponibles);
     }//GEN-LAST:event_jmiDisponiblesActionPerformed
 
+    private void jMRutasHorariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMRutasHorariosMouseClicked
+        // TODO add your handling code here:
+        GestionRutas rutas = new GestionRutas();
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();        
+        rutas.setVisible(true);
+        jDesktopPane1.add(rutas);
+        jDesktopPane1.moveToFront(rutas);
+    }//GEN-LAST:event_jMRutasHorariosMouseClicked
+
 
     private void jMPasajerosMouseClicked(java.awt.event.MouseEvent evt) {                                         
         // TODO add your handling code here:
@@ -233,7 +238,6 @@ public class JFSolBus extends javax.swing.JFrame {
     private javax.swing.JMenu jMGuardarColectivo;
     private javax.swing.JMenuItem jMIBuscarCole;
     private javax.swing.JMenuItem jMICrearCole;
-    private javax.swing.JMenuItem jMIRutas;
     private javax.swing.JMenu jMPasajeros;
     private javax.swing.JMenu jMPasajes;
     private javax.swing.JMenu jMRutasHorarios;

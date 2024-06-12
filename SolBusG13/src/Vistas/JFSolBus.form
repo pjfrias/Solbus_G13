@@ -24,16 +24,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Rutas y Horarios"/>
           </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMIRutas">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Rutas"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMIRutasActionPerformed"/>
-              </Events>
-            </MenuItem>
-          </SubComponents>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMRutasHorariosMouseClicked"/>
+          </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMGuardarColectivo">
           <Properties>
