@@ -109,7 +109,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Para armar un viaje primero elijamos un colectivo"/>
+        <Property name="text" type="java.lang.String" value="Para armar un viaje primero creamos un colectivo"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">

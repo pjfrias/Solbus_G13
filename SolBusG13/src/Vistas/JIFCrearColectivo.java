@@ -10,7 +10,7 @@ import java.awt.Color;
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
-import javax.swing.text.html.CSS;
+
 
 /**
  *
@@ -66,7 +66,7 @@ public class JIFCrearColectivo extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("Creamos un Colectivo");
 
-        jLabel1.setText("Para armar un viaje primero elijamos un colectivo");
+        jLabel1.setText("Para armar un viaje primero creamos un colectivo");
 
         jLabel2.setText("Modelo (año) : ");
 
@@ -200,14 +200,14 @@ public class JIFCrearColectivo extends javax.swing.JInternalFrame {
         
         
       
-      String patronModelo="^[0-9]{4}$";
+      String patronModelo="^(200[0-9]|202[0-4])$";
       String patronMarca="^[a-zA-Z]+$";
       String patronMatricula="^[a-zA-Z]{3}[-][0-9]{3}$";
-      String patronCapacidad="^-?[0-9]{2}+(\\\\.[0-9]+)?$";
+      String patronCapacidad="^[0-5]$";
       
       if(!modelo.matches(patronModelo)){
      jtModelo.setBorder(new LineBorder(Color.RED, 2));
-      JOptionPane.showMessageDialog(this, "debe ingresar un modelo de año valido");
+      JOptionPane.showMessageDialog(this, "debe ingresar un modelo de año valido(2000-2024)");
       
       return;}
      
@@ -227,7 +227,7 @@ public class JIFCrearColectivo extends javax.swing.JInternalFrame {
         Matcher matcher = pattern.matcher(plaza.toString());
             if (!matcher.matches()) {
                 jtPlazas.setBorder(new LineBorder(Color.RED, 2));
-                 JOptionPane.showMessageDialog(this, "debe ingresar el numero de asientos ");
+                 JOptionPane.showMessageDialog(this, "debe ingresar el numero menor de asientos ");
            
             return;} 
       
@@ -252,7 +252,7 @@ public class JIFCrearColectivo extends javax.swing.JInternalFrame {
              }
            
         } catch (HeadlessException | NumberFormatException e){
-    JOptionPane.showMessageDialog(null,"Llene todos los campos o coloque bien los datos" );
+    JOptionPane.showMessageDialog(null," Por favor llene todos los campos " );
             
             
             

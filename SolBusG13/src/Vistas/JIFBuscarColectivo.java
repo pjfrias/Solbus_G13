@@ -20,7 +20,7 @@ private void limpiarCampos(){
         jtModelo.setText("");
         jtMatricula.setText("");
         jtCapacidad.setText("");
-        jrbDesuso.disable();
+        jrbDesuso.setSelected(false);
        
         coleActual = null;
     }   

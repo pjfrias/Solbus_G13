@@ -88,6 +88,10 @@ public class Colectivo {
         sb.append('}');
         return sb.toString();
     }
+
+    public void setMatricula(int matExistente) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     
 }

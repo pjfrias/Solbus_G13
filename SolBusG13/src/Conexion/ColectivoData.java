@@ -33,12 +33,142 @@ public class ColectivoData {
 
     // crud
     //create
-    public void guardarColectivo(Colectivo colectivo) { /* aca tenias un trown esto lo usamos si queremos que el error se maneje
-        en el proceso que llama a la funcion, y no iria el try y catch interno o si lo pones puede ser porque haya otra exepcion
-        que no se captura en el mismo y la tenes que manejar por afuera. como no tenemos otro codigo que tire exepciones la saque*/
-        String sql = "INSERT INTO colectivos(matricula,marca,modelo,capacidad,estado) VALUES(?,?,?,?,?)";
+    public void guardarColectivo(Colectivo colectivo) { 
+        String sqlVerificar = "SELECT id_colectivo FROM colectivos WHERE matricula = ? AND estado = false";
+        String sqlActualizarEstado = "UPDATE colectivos SET estado = true WHERE id_colectivo = ?";
+        String sqlActualizarInfo = "UPDATE colectivos SET marca = ?, modelo = ?, matricula = ?, capacidad = ? WHERE id_colectivo = ?";
+        String sqlInsertar = "INSERT INTO colectivos (marca, modelo, matricula, capacidad, estado) VALUES (?, ?, ?, ?, true)";
 
         try {
+            // Verifico si el colectivo existe y está marcado como eliminado (estado = false)
+            PreparedStatement psVerificar = conexion.prepareStatement(sqlVerificar);
+            psVerificar.setString(1, colectivo.getMatricula());
+            ResultSet rsVerificar = psVerificar.executeQuery();
+
+            if (rsVerificar.next()) {
+                // Si existe, actualizo el estado a true
+                int idExistente = rsVerificar.getInt("id_colectivo");
+
+                PreparedStatement psActualizarEstado = conexion.prepareStatement(sqlActualizarEstado);
+                psActualizarEstado.setInt(1, idExistente);
+                psActualizarEstado.executeUpdate();
+                psActualizarEstado.close();
+
+                // Actualizo la información del colectivo
+                PreparedStatement psActualizarInfo = conexion.prepareStatement(sqlActualizarInfo);
+                psActualizarInfo.setString(1, colectivo.getMarca());
+                psActualizarInfo.setString(2, colectivo.getModelo());
+                psActualizarInfo.setString(3, colectivo.getMatricula());
+                psActualizarInfo.setInt(4, colectivo.getCapacidad());
+                psActualizarInfo.setInt(5, idExistente);
+                psActualizarInfo.executeUpdate();
+                psActualizarInfo.close();
+
+                colectivo.setId_colectivo(idExistente);
+                JOptionPane.showMessageDialog(null, "Colectivo actualizado con éxito.");
+            } else {
+                // Si no existe, inserto el nuevo colectivo
+                PreparedStatement psInsertar = conexion.prepareStatement(sqlInsertar, Statement.RETURN_GENERATED_KEYS);
+                psInsertar.setString(1, colectivo.getMarca());
+                psInsertar.setString(2, colectivo.getModelo());
+                psInsertar.setString(3, colectivo.getMatricula());
+                psInsertar.setInt(4, colectivo.getCapacidad());
+                psInsertar.executeUpdate();
+
+                ResultSet rsInsertar = psInsertar.getGeneratedKeys();
+                if (rsInsertar.next()) {
+                    colectivo.setId_colectivo(rsInsertar.getInt(1));
+                    JOptionPane.showMessageDialog(null, "Colectivo añadido con éxito.");
+                }
+                psInsertar.close();
+            }
+
+            psVerificar.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Colectivos: " + ex.getMessage());
+
+        
+        }
+        
+        
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        /* String sqlVerificar = "SELECT matricula FROM colectivos WHERE estado = false";
+        String sqlActualizarEstado = "UPDATE colectivos SET estado = true WHERE matricula = ?";
+        String sqlActualizarInfo = "UPDATE colectivos SET matricula = ?, modelo = ?, marca = ?, capacidad = ? WHERE matricula = ?";
+        String sqlInsertar = "INSERT INTO colectivos (matricula, modelo, marca, capacidad, estado) VALUES (?, ?, ?, ?, true)";
+
+        //String sql = "INSERT INTO colectivos(matricula,marca,modelo,capacidad,estado) VALUES(?,?,?,?,?)";
+
+         try {
+            //Verifico si el pasajero existe y está marcado como eliminado (estado = false)
+            PreparedStatement psVerificar = conexion.prepareStatement(sqlVerificar);
+            psVerificar.setString(1, colectivo.getMatricula());
+            ResultSet rsVerificar = psVerificar.executeQuery();
+
+            if (rsVerificar.next()) {
+                //Si existe, actualizo el estado a true
+                String matExistente = rsVerificar.getString("matricula");
+
+                try (PreparedStatement psActualizarEstado = conexion.prepareStatement(sqlActualizarEstado)) {
+                    psActualizarEstado.setString(1, matExistente);
+                    psActualizarEstado.executeUpdate();
+                }
+
+                // Actualizo la información del pasajero
+                PreparedStatement psActualizarInfo = conexion.prepareStatement(sqlActualizarInfo);
+                psActualizarInfo.setString(1, colectivo.getMatricula());
+                psActualizarInfo.setString(3, colectivo.getMarca());
+                psActualizarInfo.setString(2, colectivo.getModelo());
+                psActualizarInfo.setInt(4, colectivo.getCapacidad());
+               // psActualizarInfo.setString(6, matExistente);
+                psActualizarInfo.executeUpdate();
+                psActualizarInfo.close();
+
+                colectivo.setMatricula(matExistente);
+                JOptionPane.showMessageDialog(null, "Pasajero añadido con exito");
+            } else {
+                //Si no existe, inserto el nuevo pasajero
+                PreparedStatement psInsertar = conexion.prepareStatement(sqlInsertar, Statement.RETURN_GENERATED_KEYS);
+                psInsertar.setString(1, colectivo.getMatricula());
+                psInsertar.setString(2, colectivo.getMarca());
+                psInsertar.setString(3, colectivo.getModelo());
+                psInsertar.setInt(4, colectivo.getCapacidad());
+                 psInsertar.setBoolean(5, colectivo.isEstado());
+                psInsertar.executeUpdate();
+
+                ResultSet rsInsertar = psInsertar.getGeneratedKeys();
+                if (rsInsertar.next()) {
+                    colectivo.setMatricula(rsInsertar.getInt(1));
+                    JOptionPane.showMessageDialog(null, "colectivo añadido con éxito.");
+                }
+                psInsertar.close();
+            }
+
+            psVerificar.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al cargar un colectivo: " +ex.getMessage());
+        }
+        
+        */
+        
+       /* try {
             // preparamos la ejecucion de la consulta sql
             PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, colectivo.getMatricula());
@@ -53,9 +183,8 @@ public class ColectivoData {
 
             if (rs.next()) {
 
-                /*colectivo.setMatricula(rs.getString("matricula")); Esta linea por lo general la seteamos para obtener los id
-                que se generaron en la base de datos, la matricula ya la traes en el objeto, lo comente porque si no me tiraba error*/
-                JOptionPane.showMessageDialog(null, "colectivo aniadido con exito.");
+                
+                JOptionPane.showMessageDialog(null, "colectivo añadido con exito.");
 
             }
             ps.close();
@@ -63,11 +192,9 @@ public class ColectivoData {
             JOptionPane.showMessageDialog(null, "Error al aniadir un colectivo" + e.getMessage());
             e.printStackTrace();// se usa para imprimir este Throwable junto con otros detalles como el nombre de la clase y el número de línea donde ocurrió la excepción significa su rastreo inverso. Este método imprime un 
             //seguimiento de pila para este objeto Throwable en el flujo de salida de error estándar. 
-        }
+        }*/
 
-    }
-
-    ;
+   
      
      
      //reed
@@ -184,7 +311,7 @@ public class ColectivoData {
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
                 cole = new Colectivo();
-                cole.setId_colectivo(rs.getInt("Id_colectivo"));
+                
                 cole.setMarca(rs.getString("marca"));
                 cole.setModelo(rs.getString("modelo"));
                 cole.setMatricula(rs.getString("matricula"));
