@@ -45,7 +45,6 @@ public class JFSolBus extends javax.swing.JFrame {
         jMPasajeros = new javax.swing.JMenu();
         jMRutasHorarios = new javax.swing.JMenu();
         jMIRutas = new javax.swing.JMenuItem();
-        jMIHorarios = new javax.swing.JMenuItem();
         jMGuardarColectivo = new javax.swing.JMenu();
         jmiDisponibles = new javax.swing.JMenuItem();
         jMICrearCole = new javax.swing.JMenuItem();
@@ -90,9 +89,6 @@ public class JFSolBus extends javax.swing.JFrame {
             }
         });
         jMRutasHorarios.add(jMIRutas);
-
-        jMIHorarios.setText("Horarios");
-        jMRutasHorarios.add(jMIHorarios);
 
         jMenuBar1.add(jMRutasHorarios);
 
@@ -237,7 +233,6 @@ public class JFSolBus extends javax.swing.JFrame {
     private javax.swing.JMenu jMGuardarColectivo;
     private javax.swing.JMenuItem jMIBuscarCole;
     private javax.swing.JMenuItem jMICrearCole;
-    private javax.swing.JMenuItem jMIHorarios;
     private javax.swing.JMenuItem jMIRutas;
     private javax.swing.JMenu jMPasajeros;
     private javax.swing.JMenu jMPasajes;
