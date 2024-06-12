@@ -16,6 +16,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Pasajeros"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMPasajerosMouseClicked"/>
+          </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMRutasHorarios">
           <Properties>
