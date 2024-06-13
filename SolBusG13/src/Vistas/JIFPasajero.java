@@ -26,10 +26,34 @@ public class JIFPasajero extends javax.swing.JInternalFrame {
         pasajero = null;
     }
 
+    public static boolean isValidName(String name) {
+        final String NAME_PATTERN = "^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$";
+        final Pattern pattern = Pattern.compile(NAME_PATTERN);
+
+        if (name == null || name.trim().isEmpty()) {
+            return false;
+        }
+        Matcher matcher = pattern.matcher(name);
+        return matcher.matches();
+    }
+
+    public static boolean isValidPhoneNumber(String phoneNumber) {
+        final String PHONE_PATTERN = "^(\\+\\d{1,2}\\s?)?\\(?\\d{1,4}\\)?\\s?\\d{1,4}([-\\s]?\\d{1,4}){1,3}$";
+
+        final Pattern pattern = Pattern.compile(PHONE_PATTERN);
+        if (phoneNumber == null) {
+            return false;
+        }
+        Matcher matcher = pattern.matcher(phoneNumber);
+        return matcher.matches();
+    }
+
     public static boolean isValidEmail(String email) {
         final String EMAIL_PATTERN = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
         final Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-        if (email == null) return false;
+        if (email == null) {
+            return false;
+        }
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
@@ -243,9 +267,24 @@ public class JIFPasajero extends javax.swing.JInternalFrame {
             String correo = txtCorreo.getText();
             String telefono = txtTelefono.getText();
 
+            if (!isValidName(apellido)) {
+                JOptionPane.showMessageDialog(null, "Ingrese un apellido válido");
+                return; // Salir del método si el apellido no es válido
+            }
+
+            if (!isValidName(nombre)) {
+                JOptionPane.showMessageDialog(null, "Ingrese un nombre válido");
+                return; // Salir del método si el nombre no es válido
+            }
+
             if (!isValidEmail(correo)) {
                 JOptionPane.showMessageDialog(null, "Ingrese un correo electrónico válido");
                 return;
+            }
+
+            if (!isValidPhoneNumber(telefono)) {
+                JOptionPane.showMessageDialog(null, "Ingrese un número de teléfono válido");
+                return; // Salir del método si el teléfono no es válido
             }
 
             if (pasajero == null) {
