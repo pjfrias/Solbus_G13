@@ -743,16 +743,17 @@ public class GestionRutas extends javax.swing.JInternalFrame {
     }
 
     public void controlRutas() {
-        LocalTime duracion = LocalTime.parse(jTtiempoEstimado.getText());
-        Ruta ruta = new Ruta(jTorigen.getText(), jTdestino.getText(), duracion, true);
+        if (jTtiempoEstimado.getText() != "") {
+            LocalTime duracion = LocalTime.parse(jTtiempoEstimado.getText());
+            Ruta ruta = new Ruta(jTorigen.getText(), jTdestino.getText(), duracion, true);
 
-        ruta = datosRuta.buscarRutaOrigenDestino(ruta);
-        if (ruta.getOrigen() == null) {
-            control5 = true;
-        } else {
-            control5 = false;
-            jLerror1.setText("No se puede agregar otro horario a la misma ruta");
+            ruta = datosRuta.buscarRutaOrigenDestino(ruta);
+            if (ruta.getOrigen() == null) {
+                control5 = true;
+            } else {
+                control5 = false;
+                jLerror1.setText("No se puede agregar otro horario a la misma ruta");
+            }
         }
-
     }
 }

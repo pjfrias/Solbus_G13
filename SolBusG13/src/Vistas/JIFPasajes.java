@@ -288,33 +288,31 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
+                        .addContainerGap()
+                        .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTMatricula)
+                        .addGap(47, 47, 47)
                         .addComponent(jLabel11)
                         .addGap(12, 12, 12)
-                        .addComponent(jTMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(6, 6, 6)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTCapaciad, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTLugaresDisponibles)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                        .addComponent(jTLugaresDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTCapaciad, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,17 +321,17 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(jTMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15)
-                    .addComponent(jTLugaresDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5)
+                    .addComponent(jLabel11)
+                    .addComponent(jTMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jLabel11)
                     .addComponent(jLabel14)
                     .addComponent(jTModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTCapaciad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jTCapaciad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15)
+                    .addComponent(jTLugaresDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jTPasajeros.setModel(new javax.swing.table.DefaultTableModel(
@@ -447,7 +445,7 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jTPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel9)))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -498,7 +496,7 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBNueva)
@@ -585,13 +583,13 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
         if (pasaje != null && pasajero != null && colectivo != null && ruta != null && horario != null) {
             
             cargarDatosPasajero();
-            cargarDatosRuta();
-            cargarDatosHorario();
             cargarDatosColectivo();
             jTPrecio.setText(precio.toString());
-            
             jBNueva.setEnabled(true);
             jBBorrar.setEnabled(true);
+            cargarDatosRuta();
+            cargarDatosHorario();
+            
         }else JOptionPane.showMessageDialog(this, "No se han podido cargar todos los datos del pasaje");
         
         
@@ -607,6 +605,10 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
         // TODO add your handling code here:
+        if (jCBAsiento.getItemCount() == 0) {
+            JOptionPane.showMessageDialog(this, "No se puede grabar la informacion, busque un asiento disponible para la venta");
+            return;
+        }
         if (pasaje == null) {
             pasaje = new Pasaje(pasajero, colectivo, ruta, hoy.toLocalDate(), horario.getSalida(), (Integer) jCBAsiento.getSelectedItem(), precio, true);
             pasajeDat.guardarPasaje(pasaje);
@@ -750,12 +752,12 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
         jBBuscarPasajero.setEnabled(true);
         
         jCBAsiento.setEnabled(true);
-        pasajes = coleDat.verPasajerosAsientos(colectivo, horario, hoy);
-        Collections.sort(pasajes, (p1, p2) -> Integer.compare(p1.getAsiento(), p2.getAsiento()));
         llenarAsientosDisponibles();
     }
     
     private void llenarListaPasajeros(){
+        pasajes = coleDat.verPasajerosAsientos(colectivo, horario, hoy);
+        Collections.sort(pasajes, (p1, p2) -> Integer.compare(p1.getAsiento(), p2.getAsiento()));
         
         if(pasajes.size()>0){
 
@@ -769,6 +771,9 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
     }
     
     private void llenarAsientosDisponibles(){
+        pasajes = coleDat.verPasajerosAsientos(colectivo, horario, hoy);
+        Collections.sort(pasajes, (p1, p2) -> Integer.compare(p1.getAsiento(), p2.getAsiento()));
+        
         if (colectivo.getCapacidad() > lugaresOcupados) {
             //LLENAR jCBASIENTOS CON LOS ASIENTOS LIBRES
             jCBAsiento.removeAllItems();
@@ -783,14 +788,17 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
                     }
                 }
             }
-            if (pasaje != null) {
+            if (pasaje.getRutas().getIdRuta() == ruta.getIdRuta()) {
                 jCBAsiento.addItem(pasaje.getAsiento());
             }
             
             jCBAsiento.setEnabled(true);
         }else {
-            JOptionPane.showMessageDialog(this, "Ya no hay lugares disponibles para este viaje");
-            jCBAsiento.setEnabled(false);
+            Ruta temp = (Ruta) jCBRuta.getSelectedItem();
+            if(pasaje.getRutas().getIdRuta() != temp.getIdRuta()){
+                JOptionPane.showMessageDialog(this, "Ya no hay lugares disponibles para este viaje");
+                jCBAsiento.setEnabled(false);
+            }
         }
     }
     
@@ -809,7 +817,6 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
             for (int i = 0; i < jCBRuta.getItemCount(); i++) {
                 if (jCBRuta.getItemAt(i).getIdRuta() == ruta.getIdRuta()) {
                     jCBRuta.setSelectedIndex(i);
-                    System.out.println("Indice "+i+" Ruta: "+ruta);
                 }
             }
         }
