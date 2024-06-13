@@ -739,7 +739,7 @@ public class GestionRutas extends javax.swing.JInternalFrame {
     }
 
     public void controlRutas() {
-        if (jTtiempoEstimado.getText() != "") {
+        if (!jTtiempoEstimado.getText().equals(""))  {            
             LocalTime duracion = LocalTime.parse(jTtiempoEstimado.getText());
             Ruta ruta = new Ruta(jTorigen.getText(), jTdestino.getText(), duracion, true);
 
