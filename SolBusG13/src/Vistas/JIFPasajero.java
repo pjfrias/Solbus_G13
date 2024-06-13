@@ -269,12 +269,12 @@ public class JIFPasajero extends javax.swing.JInternalFrame {
 
             if (!isValidName(apellido)) {
                 JOptionPane.showMessageDialog(null, "Ingrese un apellido válido");
-                return; // Salir del método si el apellido no es válido
+                return;
             }
 
             if (!isValidName(nombre)) {
                 JOptionPane.showMessageDialog(null, "Ingrese un nombre válido");
-                return; // Salir del método si el nombre no es válido
+                return; 
             }
 
             if (!isValidEmail(correo)) {
@@ -284,7 +284,7 @@ public class JIFPasajero extends javax.swing.JInternalFrame {
 
             if (!isValidPhoneNumber(telefono)) {
                 JOptionPane.showMessageDialog(null, "Ingrese un número de teléfono válido");
-                return; // Salir del método si el teléfono no es válido
+                return; 
             }
 
             if (pasajero == null) {
