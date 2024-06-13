@@ -449,5 +449,4 @@ public class ColectivoData {
         }
         return colectivos;
     }
-
 }

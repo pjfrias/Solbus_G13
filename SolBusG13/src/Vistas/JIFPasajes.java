@@ -32,7 +32,7 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
     private PasajeData pasajeDat = new PasajeData();
     private HorarioData horarioDat = new HorarioData();
     private DefaultTableModel modelo = new DefaultTableModel();
-    private Date hoy = Date.valueOf(LocalDate.now());
+    private Date hoy;
     private int capacidad, lugaresOcupados;
     private ArrayList<Pasaje> pasajes = new ArrayList<>();
     private Double precio = 0d;
@@ -41,6 +41,7 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
     
     public JIFPasajes() {
         initComponents();
+        hoy = Date.valueOf(LocalDate.now());
         jTHoy.setText(Date.valueOf(LocalDate.now()).toString());
         modelo.addColumn("DNI");
         modelo.addColumn("Apellido");
@@ -564,14 +565,27 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
 
     private void jBNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNuevaActionPerformed
         // TODO add your handling code here:
+        hoy = Date.valueOf(LocalDate.now());
         resetVista();
     }//GEN-LAST:event_jBNuevaActionPerformed
 
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
         // TODO add your handling code here:
-        //resetVista();
+        hoy = Date.valueOf(LocalDate.now());
         int nroPasaje = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del pasaje a buscar"));
         pasaje = pasajeDat.buscarPasajePorId(nroPasaje);
+        
+        if(!pasaje.getFechaViaje().isEqual(hoy.toLocalDate())){
+            JOptionPane.showMessageDialog(this, "El pasaje tiene fecha ya vencida, no puede modificarse");
+            jBGuardar.setEnabled(false);
+            jBBorrar.setEnabled(false);
+        }else {
+            jBGuardar.setEnabled(true);
+            jBBorrar.setEnabled(true);
+        }
+        
+        hoy = Date.valueOf(pasaje.getFechaViaje());
+        //JOptionPane.showMessageDialog(this, "Fecha actual: "+hoy+" - Fecha pasaje: "+pasaje.getFechaViaje());
         if (pasaje != null) {
             pasajero = pasaje.getPasajero();
             colectivo = pasaje.getColectivo();
@@ -591,8 +605,6 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
             cargarDatosHorario();
             
         }else JOptionPane.showMessageDialog(this, "No se han podido cargar todos los datos del pasaje");
-        
-        
     }//GEN-LAST:event_jBBuscarActionPerformed
 
     private void jBBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBorrarActionPerformed
@@ -788,14 +800,19 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
                     }
                 }
             }
-            if (pasaje.getRutas().getIdRuta() == ruta.getIdRuta()) {
-                jCBAsiento.addItem(pasaje.getAsiento());
-            }
-            
-            jCBAsiento.setEnabled(true);
+            Ruta temp = (Ruta) jCBRuta.getSelectedItem();
+            if(pasaje != null)
+                if(pasaje.getRutas().getIdRuta() == temp.getIdRuta()){
+                    jCBAsiento.addItem(pasaje.getAsiento());
+                }else jCBAsiento.setEnabled(true);
         }else {
             Ruta temp = (Ruta) jCBRuta.getSelectedItem();
-            if(pasaje.getRutas().getIdRuta() != temp.getIdRuta()){
+            if(pasaje != null){
+                if(pasaje.getRutas().getIdRuta() != temp.getIdRuta()){
+                    JOptionPane.showMessageDialog(this, "Ya no hay lugares disponibles para este viaje");
+                    jCBAsiento.setEnabled(false);
+                }
+            }else{
                 JOptionPane.showMessageDialog(this, "Ya no hay lugares disponibles para este viaje");
                 jCBAsiento.setEnabled(false);
             }
