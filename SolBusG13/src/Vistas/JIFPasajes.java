@@ -583,18 +583,19 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
         int nroPasaje = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del pasaje a buscar"));
         pasaje = pasajeDat.buscarPasajePorId(nroPasaje);
         
-        if(!pasaje.getFechaViaje().isEqual(hoy.toLocalDate())){
-            JOptionPane.showMessageDialog(this, "El pasaje tiene fecha ya vencida, no puede modificarse");
-            jBGuardar.setEnabled(false);
-            jBBorrar.setEnabled(false);
-        }else {
-            jBGuardar.setEnabled(true);
-            jBBorrar.setEnabled(true);
-        }
         
-        hoy = Date.valueOf(pasaje.getFechaViaje());
         //JOptionPane.showMessageDialog(this, "Fecha actual: "+hoy+" - Fecha pasaje: "+pasaje.getFechaViaje());
         if (pasaje != null) {
+            if(!pasaje.getFechaViaje().isEqual(hoy.toLocalDate())){
+                JOptionPane.showMessageDialog(this, "El pasaje tiene fecha ya vencida, no puede modificarse");
+                jBGuardar.setEnabled(false);
+                jBBorrar.setEnabled(false);
+            }else {
+                jBGuardar.setEnabled(true);
+                jBBorrar.setEnabled(true);
+            }
+        
+        hoy = Date.valueOf(pasaje.getFechaViaje());
             pasajero = pasaje.getPasajero();
             colectivo = pasaje.getColectivo();
             ruta = pasaje.getRutas();
