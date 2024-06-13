@@ -10,6 +10,7 @@ import Entidades.Horario;
 import Entidades.Pasaje;
 import Entidades.Pasajero;
 import Entidades.Ruta;
+import java.awt.Color;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 public class JIFPasajes extends javax.swing.JInternalFrame {
@@ -533,13 +535,19 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
                 pasajero = pasajeroDat.bucarPasajero(Integer.parseInt(jTDni.getText()));
                 if(pasajero == null) JOptionPane.showMessageDialog(this, "El pasajero no se encuentra registrado, ingreselo desde el menu Pasajero");
                 else{
+                    jTDni.setBorder(new LineBorder(Color.BLACK, 2));
                     
                     jTApellido.setText(pasajero.getApellido());
                     jTNombre.setText(pasajero.getNombre());
                     jTEmail.setText(pasajero.getCorreo());
                     jTTelefono.setText(pasajero.getTelefono());
                 }
-            }else JOptionPane.showMessageDialog(this, "Debe ingresar un nro de documento valido");
+            }else {
+                jTDni.setBorder(new LineBorder(Color.RED, 2));
+                JOptionPane.showMessageDialog(this, "Debe ingresar un nro de documento valido");
+                
+                        
+                        }
         }
     }//GEN-LAST:event_jBBuscarPasajeroActionPerformed
 
@@ -603,6 +611,7 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
             jBBorrar.setEnabled(true);
             cargarDatosRuta();
             cargarDatosHorario();
+            jTPrecio.setText(""+precio);
             
         }else JOptionPane.showMessageDialog(this, "No se han podido cargar todos los datos del pasaje");
     }//GEN-LAST:event_jBBuscarActionPerformed

@@ -212,7 +212,7 @@ public class JIFCrearColectivo extends javax.swing.JInternalFrame {
         
         
       
-      String patronModelo="^(200[0-9]|202[0-4])$";
+      String patronModelo="^(200[0-9]|202[0-4]|201[0-9])$";
       String patronMarca="^[a-zA-Z]+$";
       String patronMatricula="^[a-zA-Z]{3}[-][0-9]{3}$";
       String patronCapacidad="^[0-5]$";

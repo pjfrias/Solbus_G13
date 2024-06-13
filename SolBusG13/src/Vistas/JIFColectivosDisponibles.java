@@ -167,7 +167,7 @@ public class JIFColectivosDisponibles extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "No se encontraron datos para mostrar");
         }      
        
-       jbCargar.setVisible(false);
+       jbCargar.setEnabled(false);
     }//GEN-LAST:event_jbCargarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
