@@ -612,7 +612,7 @@ public class JIFPasajes extends javax.swing.JInternalFrame {
             jBBorrar.setEnabled(true);
             cargarDatosRuta();
             cargarDatosHorario();
-            jTPrecio.setText(""+precio);
+            jTPrecio.setText(precio.toString());
             
         }else JOptionPane.showMessageDialog(this, "No se han podido cargar todos los datos del pasaje");
     }//GEN-LAST:event_jBBuscarActionPerformed
